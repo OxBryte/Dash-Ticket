@@ -66,7 +66,7 @@ export default function Navbar() {
             
             <CartDrawer />
             
-            {session ? (
+            {user ? (
               <div className="flex items-center gap-2">
                 <Link 
                   href="/organizer/events/create"
@@ -80,12 +80,12 @@ export default function Navbar() {
                     className="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 flex items-center gap-2"
                   >
                     <User className="h-6 w-6" />
-                    <span className="hidden md:inline text-sm">{session.user?.name}</span>
+                    <span className="hidden md:inline text-sm">{user.name}</span>
                   </button>
                   {isDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
                       <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border-b dark:border-gray-700">
-                        {session.user?.email}
+                        {user.email}
                       </div>
                       <Link 
                         href="/dashboard" 
@@ -101,7 +101,7 @@ export default function Navbar() {
                       >
                         My Orders
                       </Link>
-                      {session.user?.role === 'ORGANIZER' && (
+                      {user.role === 'ORGANIZER' && (
                         <Link 
                           href="/organizer/events/create" 
                           onClick={() => setIsDropdownOpen(false)}
@@ -111,9 +111,11 @@ export default function Navbar() {
                         </Link>
                       )}
                       <button
-                        onClick={() => {
+                        onClick={async () => {
                           setIsDropdownOpen(false)
-                          signOut()
+                          await fetch('/api/auth/logout', { method: 'POST' })
+                          router.refresh()
+                          window.location.href = '/'
                         }}
                         className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
                       >
