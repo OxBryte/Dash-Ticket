@@ -1,15 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { LogIn } from 'lucide-react'
+import { useAuth } from '@/app/lib/auth-context'
 
 export default function SignInPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') || '/'
+  const { refetch } = useAuth()
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,17 +23,20 @@ export default function SignInPage() {
     setIsLoading(true)
 
     try {
-      const result = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
       })
 
-      if (result?.error) {
-        setError('Invalid email or password')
-      } else {
+      const data = await response.json()
+
+      if (response.ok) {
+        await refetch()
         router.push(callbackUrl)
         router.refresh()
+      } else {
+        setError(data.error || 'Invalid email or password')
       }
     } catch (error) {
       setError('An error occurred. Please try again.')
