@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
           ageRestriction: ageRestriction || null,
           refundPolicy: refundPolicy || null,
           imageUrl: imageUrl || null,
-          organizerId: organizer.id,
+          organizerId: user.id,
           venueId: newVenue.id,
           ticketTypes: {
             create: ticketTypes.map((tt: any, index: number) => ({
