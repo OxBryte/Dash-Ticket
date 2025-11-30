@@ -137,7 +137,7 @@ export default function CreateEventPage() {
         ageRestriction: formData.ageRestriction,
         refundPolicy: formData.refundPolicy,
         imageUrl: formData.imageUrl || null,
-        status: 'DRAFT', // Default to draft
+        status: 'ON_SALE', // Events go live immediately
         venue: {
           name: formData.venueName,
           address: formData.venueAddress,
