@@ -4,7 +4,6 @@
 
 Your ticketing platform now uses **100% real, professional data** instead of placeholders.
 
-
 ---
 
 ## 🏟️ **Real Venues (6 Venues)**
