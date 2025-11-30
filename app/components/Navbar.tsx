@@ -1,8 +1,12 @@
+'use client'
+
 import Link from 'next/link'
-import { Calendar, Search, User } from 'lucide-react'
+import { Calendar, Search, User, LogOut } from 'lucide-react'
 import CartDrawer from './cart/CartDrawer'
+import { useSession, signOut } from 'next-auth/react'
 
 export default function Navbar() {
+  const { data: session } = useSession()
   return (
     <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
       <div className="container mx-auto px-4">
