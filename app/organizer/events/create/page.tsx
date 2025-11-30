@@ -450,7 +450,7 @@ export default function CreateEventPage() {
                         type="text"
                         value={ticket.name}
                         onChange={(e) => handleTicketTypeChange(ticket.id, 'name', e.target.value)}
-                        placeholder="e.g., General Admission, VIP"
+                        placeholder="Ticket type name"
                         className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
                         required
                       />
