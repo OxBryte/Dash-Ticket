@@ -61,7 +61,7 @@ export default function CartDrawer() {
         className="relative p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
       >
         <ShoppingCart className="h-6 w-6" />
-        {itemCount > 0 && (
+        {mounted && itemCount > 0 && (
           <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
             {itemCount}
           </span>
