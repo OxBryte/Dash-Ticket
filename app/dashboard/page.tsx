@@ -50,7 +50,7 @@ export default async function DashboardPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Welcome back, {session.user?.name || 'User'}!
+            Welcome back, {user.name || 'User'}!
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
             Manage your tickets, orders, and events all in one place.
