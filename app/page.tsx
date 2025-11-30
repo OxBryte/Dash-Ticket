@@ -1,3 +1,5 @@
+import ExampleQuery from './components/ExampleQuery'
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
@@ -47,7 +49,7 @@ export default function Home() {
           </div>
 
           {/* Getting Started */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg mb-12">
             <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
               Getting Started
             </h2>
@@ -94,6 +96,17 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* TanStack Query Demo */}
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+              🔄 TanStack Query Demo
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+              Live example of data fetching with TanStack Query
+            </p>
+            <ExampleQuery />
           </div>
         </div>
       </main>
