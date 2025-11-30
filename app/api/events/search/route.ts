@@ -19,12 +19,12 @@ export async function GET(request: NextRequest) {
       status: 'ON_SALE',
     }
 
-    // Text search
+    // Text search (SQLite doesn't support case-insensitive mode, so we use contains)
     if (query) {
       where.OR = [
-        { title: { contains: query, mode: 'insensitive' } },
-        { description: { contains: query, mode: 'insensitive' } },
-        { shortDescription: { contains: query, mode: 'insensitive' } },
+        { title: { contains: query } },
+        { description: { contains: query } },
+        { shortDescription: { contains: query } },
       ]
     }
 
