@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Calendar, Search, ShoppingCart, User } from 'lucide-react'
+import { Calendar, Search, User } from 'lucide-react'
+import CartDrawer from './cart/CartDrawer'
 
 export default function Navbar() {
   return (
