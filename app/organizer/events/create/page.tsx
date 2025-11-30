@@ -38,7 +38,7 @@ export default function CreateEventPage() {
     venueCapacity: '',
     
     // Policies
-    refundPolicy: 'No refunds',
+    refundPolicy: '',
     
     // Images (in production would handle file uploads)
     imageUrl: '',
