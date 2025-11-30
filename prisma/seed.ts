@@ -120,10 +120,16 @@ async function main() {
 
   const createdVenues = []
   for (const venue of venues) {
-    const v = await prisma.venue.upsert({
-      where: { name: venue.name },
-      update: {},
-      create: venue,
+    // Check if venue exists by name and address
+    const existing = await prisma.venue.findFirst({
+      where: {
+        name: venue.name,
+        address: venue.address,
+      },
+    })
+    
+    const v = existing || await prisma.venue.create({
+      data: venue,
     })
     createdVenues.push(v)
   }
