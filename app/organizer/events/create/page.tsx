@@ -491,7 +491,7 @@ export default function CreateEventPage() {
                         value={ticket.quantityTotal}
                         onChange={(e) => handleTicketTypeChange(ticket.id, 'quantityTotal', e.target.value)}
                         min="1"
-                        placeholder="100"
+                        placeholder="Quantity"
                         className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
                         required
                       />
