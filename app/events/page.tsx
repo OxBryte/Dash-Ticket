@@ -74,9 +74,17 @@ export default function EventsSearchPage() {
     }
   }
 
-  // Fetch events on mount and when filters change
+  // Fetch events on mount
   useEffect(() => {
     fetchEvents()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Refetch when category or sort changes (but not on initial mount)
+  useEffect(() => {
+    if (!isLoading) {
+      fetchEvents()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.category, filters.sortBy])
 
@@ -301,3 +309,4 @@ export default function EventsSearchPage() {
     </div>
   )
 }
+
