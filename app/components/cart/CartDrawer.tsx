@@ -9,8 +9,14 @@ import { cn } from '@/app/lib/utils'
 export default function CartDrawer() {
   const [isOpen, setIsOpen] = useState(false)
   const [timeLeft, setTimeLeft] = useState<string>('')
+  const [mounted, setMounted] = useState(false)
   
   const { items, getTotal, getItemCount, updateQuantity, removeItem, clearCart, expiresAt, isExpired } = useCartStore()
+  
+  // Prevent hydration mismatch by only rendering cart count after mount
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   
   const itemCount = getItemCount()
   const total = getTotal()
