@@ -271,7 +271,7 @@ export default function CreateEventPage() {
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleInputChange}
-                  placeholder="https://example.com/image.jpg"
+                    placeholder="https://your-image-url.com/image.jpg"
                   className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
                 />
               </div>
