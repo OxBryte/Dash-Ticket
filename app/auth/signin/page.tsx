@@ -113,12 +113,6 @@ export default function SignInPage() {
             </button>
           </div>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Demo accounts:<br/>
-              <span className="font-mono text-xs">organizer@example.com (password: password123)</span>
-            </p>
-          </div>
         </form>
       </div>
     </div>
