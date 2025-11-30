@@ -26,14 +26,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
-    // In production, would get organizerId from authenticated session
-    // For now, get the first organizer from the database
-    const organizer = await prisma.user.findFirst({
-      where: { role: 'ORGANIZER' }
-    })
+    // Get authenticated user
+    const { getCurrentUser } = await import('@/app/lib/auth')
+    const user = await getCurrentUser()
 
-    if (!organizer) {
-      return NextResponse.json({ error: 'No organizer found' }, { status: 400 })
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    if (user.role !== 'ORGANIZER') {
+      return NextResponse.json({ error: 'Only organizers can create events' }, { status: 403 })
     }
 
     // Create event with venue and ticket types in transaction
