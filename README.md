@@ -5,6 +5,7 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 ## 🚀 Features Implemented
 
 ### ✅ **Core Event Management**
+
 - **Event Browsing**: Browse all events with responsive grid layout
 - **Event Details**: Comprehensive event pages with venue info, dates, and ticket options
 - **Event Creation**: Full-featured form for organizers to create events with custom ticket types
@@ -12,6 +13,7 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 - **Event Status Management**: DRAFT, PENDING_APPROVAL, SCHEDULED, ON_SALE, PAUSED, SOLD_OUT, ENDED, CANCELLED, POSTPONED
 
 ### 🛒 **Shopping Cart System**
+
 - **Persistent Cart**: Zustand-based state management with localStorage persistence
 - **30-Minute Timer**: Automatic cart expiration with countdown display
 - **Cart Drawer**: Slide-out cart interface with item management
@@ -20,7 +22,8 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 - **Real-time Total**: Dynamic price calculation
 
 ### 💳 **Checkout Flow**
-- **Multi-Step Process**: 
+
+- **Multi-Step Process**:
   1. Review Cart
   2. Contact Information
   3. Payment & Billing
@@ -32,6 +35,7 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 - **Payment Processing**: Simulated payment flow (ready for Stripe integration)
 
 ### 🎫 **Order Management**
+
 - **Order Tracking**: Search by order number or email address
 - **Order Details**: View complete order history with ticket information
 - **Ticket Generation**: Unique ticket numbers and QR codes for each ticket
@@ -39,6 +43,7 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 - **PDF Downloads**: Placeholder for downloadable ticket PDFs
 
 ### 🔍 **Advanced Search & Filters**
+
 - **Text Search**: Search events by title, description, venue
 - **Category Filters**: Quick filter buttons for event categories
 - **Date Range**: Filter by start/end dates
@@ -48,6 +53,7 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 - **Real-time Results**: Dynamic event list updates
 
 ### 🎟️ **Ticket Type Management**
+
 - **Multiple Ticket Types**: General Admission, VIP, Early Bird, etc.
 - **Flexible Pricing**: Per-ticket pricing in cents
 - **Quantity Controls**: Set total quantity and max per order
@@ -55,6 +61,7 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 - **Seat Type Options**: General, Reserved, Section-based (schema ready)
 
 ### 🏢 **Organizer Dashboard**
+
 - **Event Creation Form**: Comprehensive form with:
   - Basic event details (title, description, category)
   - Date/time management with timezone support
@@ -65,8 +72,9 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 - **Draft Management**: Save events as drafts before publishing
 
 ### 🎁 **Promo Code System**
+
 - **Code Creation API**: Create discount codes
-- **Discount Types**: 
+- **Discount Types**:
   - Percentage-based (e.g., 10% off)
   - Fixed amount (e.g., $5 off)
 - **Usage Limits**: Per-code and per-customer limits
@@ -76,6 +84,7 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 - **Real-time Validation**: API-based code verification
 
 ### 🗄️ **Database Schema**
+
 - **Users**: Organizers, Attendees, Admins, Staff
 - **Events**: Full event data with relationships
 - **Venues**: Reusable venue records
@@ -88,32 +97,35 @@ A comprehensive, enterprise-grade ticketing platform built with **Next.js 16**, 
 
 ## 📊 Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| **Next.js 16** | React framework with App Router |
-| **TypeScript** | Type-safe development |
-| **Prisma 5** | ORM for database management |
-| **SQLite** | Lightweight database (production-ready for Postgres) |
-| **Tailwind CSS 4** | Utility-first styling |
-| **Zustand** | State management for cart |
-| **Lucide React** | Beautiful icon system |
-| **date-fns** | Date formatting and manipulation |
-| **React Hook Form** | Form handling (ready to integrate) |
-| **Zod** | Schema validation (installed) |
-| **NextAuth** | Authentication (installed, ready to configure) |
+| Technology          | Purpose                                              |
+| ------------------- | ---------------------------------------------------- |
+| **Next.js 16**      | React framework with App Router                      |
+| **TypeScript**      | Type-safe development                                |
+| **Prisma 5**        | ORM for database management                          |
+| **SQLite**          | Lightweight database (production-ready for Postgres) |
+| **Tailwind CSS 4**  | Utility-first styling                                |
+| **Zustand**         | State management for cart                            |
+| **Lucide React**    | Beautiful icon system                                |
+| **date-fns**        | Date formatting and manipulation                     |
+| **React Hook Form** | Form handling (ready to integrate)                   |
+| **Zod**             | Schema validation (installed)                        |
+| **NextAuth**        | Authentication (installed, ready to configure)       |
 
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 
 ### 1. Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 2. Setup Database
+
 ```bash
 # Set environment variable
 export DATABASE_URL="file:./dev.db"
@@ -129,6 +141,7 @@ npx tsx prisma/seed.ts
 ```
 
 ### 3. Run Development Server
+
 ```bash
 npm run dev
 ```
@@ -188,6 +201,7 @@ ticketing-app/
 ## 🎯 Key User Flows
 
 ### 1. **Attendee Purchase Flow**
+
 1. Browse events on homepage or `/events`
 2. Use search/filters to find desired event
 3. Click event card to view details
@@ -201,6 +215,7 @@ ticketing-app/
 11. Receive order confirmation with tickets
 
 ### 2. **Organizer Event Creation Flow**
+
 1. Navigate to `/organizer/events/create`
 2. Fill in event details (title, description, category)
 3. Set date, time, and timezone
@@ -212,6 +227,7 @@ ticketing-app/
 9. Event appears in listings when status is ON_SALE
 
 ### 3. **Order Tracking Flow**
+
 1. Navigate to `/orders`
 2. Enter order number OR email address
 3. View order details and ticket information
@@ -221,18 +237,21 @@ ticketing-app/
 ## 🔌 API Endpoints
 
 ### Events API
+
 - `GET /api/events/search` - Search and filter events
   - Query params: `q`, `category`, `city`, `startDate`, `endDate`, `minPrice`, `maxPrice`, `sortBy`
 - `POST /api/events` - Create new event (organizers)
 - `GET /api/events` - List events (with filters)
 
 ### Orders API
+
 - `POST /api/orders` - Create new order
   - Body: items, customer info, billing, payment
 - `GET /api/orders?orderNumber={number}` - Get order by number
 - `GET /api/orders?email={email}` - Get orders by email
 
 ### Promo Codes API
+
 - `GET /api/promo-codes?code={code}&eventId={id}` - Validate promo code
 - `POST /api/promo-codes` - Create promo code (organizers)
 
@@ -253,68 +272,80 @@ ticketing-app/
 ## 🎨 Features from PRD Implemented
 
 ✅ Event Management System
-  - Event creation & configuration
-  - Venue management
-  - Date & time handling
-  - Event statuses & lifecycle
+
+- Event creation & configuration
+- Venue management
+- Date & time handling
+- Event statuses & lifecycle
 
 ✅ Ticket Sales & Distribution
-  - Event discovery & search
-  - Event detail pages
-  - Ticket selection
-  - Shopping cart
+
+- Event discovery & search
+- Event detail pages
+- Ticket selection
+- Shopping cart
 
 ✅ Checkout Process
-  - Multi-step flow
-  - Guest checkout
-  - Payment info collection
-  - Order confirmation
+
+- Multi-step flow
+- Guest checkout
+- Payment info collection
+- Order confirmation
 
 ✅ Order Management
-  - Order tracking
-  - Ticket generation
-  - QR code support
+
+- Order tracking
+- Ticket generation
+- QR code support
 
 ✅ Promo Codes
-  - Code validation
-  - Discount application
-  - Usage tracking
+
+- Code validation
+- Discount application
+- Usage tracking
 
 ✅ Search & Filters
-  - Text search
-  - Category filters
-  - Date/price ranges
-  - Sort options
+
+- Text search
+- Category filters
+- Date/price ranges
+- Sort options
 
 ## 🚧 Ready for Production Enhancements
 
 ### Authentication (Installed, Not Configured)
+
 - NextAuth.js installed
 - Auth schema tables created
 - Ready for provider configuration (Google, GitHub, Email)
 
 ### Payment Processing
+
 - Stripe/PayPal integration points identified
 - Ready for payment gateway SDK
 - Webhook handlers stubbed
 
 ### Reserved Seating
+
 - Schema includes seat type fields
 - UI ready for seat map integration
 - Can add SVG-based seat maps
 
 ### Email Notifications
+
 - Order confirmation emails
 - Ticket delivery
 - Event reminders
 - Ready for SendGrid/Postmark integration
 
 ### Image Uploads
+
 - Currently uses URL input
 - Ready for S3/Cloudinary integration
 - Event gallery support in schema
 
 ### Advanced Analytics
+
 - Event views tracking
 - Conversion funnels
 - Revenue reports
@@ -345,6 +376,7 @@ DATABASE_URL="file:./dev.db"
 ## 📝 Sample Data
 
 The seed script creates:
+
 - 1 Organizer user (organizer@example.com)
 - 2 Venues (The Grand Hall, Sunset Amphitheater)
 - 2 Events (Summer Music Festival, Tech Conference 2025)
@@ -353,6 +385,7 @@ The seed script creates:
 ## 🧪 Testing Promo Codes
 
 Test promo code validation:
+
 1. Go to checkout with items in cart
 2. In promo code field, you can test the API by creating codes via POST `/api/promo-codes`
 3. Example code format: `SAVE10` for 10% off

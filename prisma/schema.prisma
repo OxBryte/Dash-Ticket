@@ -16,14 +16,14 @@ model User {
   id        String   @id @default(uuid())
   email     String   @unique
   name      String?
-  password  String?  // Hashed
+  password  String? // Hashed
   role      String   @default("ATTENDEE") // ADMIN, ORGANIZER, ATTENDEE, STAFF
   phone     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  organizedEvents Event[] @relation("OrganizedEvents")
+  organizedEvents Event[]   @relation("OrganizedEvents")
   orders          Order[]
   accounts        Account[]
   sessions        Session[]
@@ -85,174 +85,174 @@ model Venue {
 }
 
 model Event {
-  id               String   @id @default(uuid())
+  id               String  @id @default(uuid())
   title            String
   description      String
   shortDescription String?
-  category         String   @default("OTHER") // CONCERT, SPORTS, CONFERENCE, FESTIVAL, etc.
-  status           String   @default("DRAFT") // DRAFT, PENDING_APPROVAL, SCHEDULED, ON_SALE, etc.
-  
-  // Images
-  imageUrl         String?
-  gallery          String? // JSON string for array of URLs
-  
-  // Date & Time
-  startDate        DateTime
-  endDate          DateTime?
-  doorsOpen        DateTime?
-  timezone         String   @default("America/New_York")
-  
-  // Details
-  ageRestriction   String?  // "ALL_AGES", "18+", "21+"
-  tags             String?  // JSON array
-  website          String?
-  
-  // Policies
-  refundPolicy     String?
-  covidPolicy      String?
-  
-  // Relations
-  organizerId      String
-  organizer        User     @relation("OrganizedEvents", fields: [organizerId], references: [id])
-  
-  venueId          String?
-  venue            Venue?   @relation(fields: [venueId], references: [id])
-  
-  ticketTypes      TicketType[]
-  orders           Order[]
-  promoCodes       PromoCode[]
+  category         String  @default("OTHER") // CONCERT, SPORTS, CONFERENCE, FESTIVAL, etc.
+  status           String  @default("DRAFT") // DRAFT, PENDING_APPROVAL, SCHEDULED, ON_SALE, etc.
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  // Images
+  imageUrl String?
+  gallery  String? // JSON string for array of URLs
+
+  // Date & Time
+  startDate DateTime
+  endDate   DateTime?
+  doorsOpen DateTime?
+  timezone  String    @default("America/New_York")
+
+  // Details
+  ageRestriction String? // "ALL_AGES", "18+", "21+"
+  tags           String? // JSON array
+  website        String?
+
+  // Policies
+  refundPolicy String?
+  covidPolicy  String?
+
+  // Relations
+  organizerId String
+  organizer   User   @relation("OrganizedEvents", fields: [organizerId], references: [id])
+
+  venueId String?
+  venue   Venue?  @relation(fields: [venueId], references: [id])
+
+  ticketTypes TicketType[]
+  orders      Order[]
+  promoCodes  PromoCode[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TicketType {
-  id            String   @id @default(uuid())
-  eventId       String
-  event         Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  
-  name          String
-  description   String?
-  price         Int      // In cents
-  currency      String   @default("USD")
-  
-  quantityTotal Int
-  quantitySold  Int      @default(0)
-  quantityHeld  Int      @default(0)
-  
-  saleStart     DateTime?
-  saleEnd       DateTime?
-  
-  minPerOrder   Int      @default(1)
-  maxPerOrder   Int      @default(10)
-  
-  // Seating
-  seatingType   String   @default("GENERAL") // GENERAL, RESERVED, SECTION
-  section       String?
-  
-  sortOrder     Int      @default(0)
-  hidden        Boolean  @default(false)
-  
-  orderItems    OrderItem[]
+  id      String @id @default(uuid())
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  name        String
+  description String?
+  price       Int // In cents
+  currency    String  @default("USD")
+
+  quantityTotal Int
+  quantitySold  Int @default(0)
+  quantityHeld  Int @default(0)
+
+  saleStart DateTime?
+  saleEnd   DateTime?
+
+  minPerOrder Int @default(1)
+  maxPerOrder Int @default(10)
+
+  // Seating
+  seatingType String  @default("GENERAL") // GENERAL, RESERVED, SECTION
+  section     String?
+
+  sortOrder Int     @default(0)
+  hidden    Boolean @default(false)
+
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model PromoCode {
-  code              String   @id
-  eventId           String?
-  event             Event?   @relation(fields: [eventId], references: [id])
-  
-  discountType      String   // PERCENTAGE, FIXED_AMOUNT
-  discountValue     Int      // Percentage (e.g., 20) or cents
-  
-  usageLimit        Int?
-  usageCount        Int      @default(0)
-  perCustomerLimit  Int      @default(1)
-  
-  validFrom         DateTime?
-  validUntil        DateTime?
-  
-  minimumPurchase   Int?
-  active            Boolean  @default(true)
-  
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  code    String  @id
+  eventId String?
+  event   Event?  @relation(fields: [eventId], references: [id])
+
+  discountType  String // PERCENTAGE, FIXED_AMOUNT
+  discountValue Int // Percentage (e.g., 20) or cents
+
+  usageLimit       Int?
+  usageCount       Int  @default(0)
+  perCustomerLimit Int  @default(1)
+
+  validFrom  DateTime?
+  validUntil DateTime?
+
+  minimumPurchase Int?
+  active          Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Order {
-  id            String   @id @default(uuid())
-  orderNumber   String   @unique
-  
-  userId        String?  // Optional for guest checkout
-  user          User?    @relation(fields: [userId], references: [id])
-  
-  eventId       String
-  event         Event    @relation(fields: [eventId], references: [id])
-  
-  status        String   @default("PENDING") // PENDING, COMPLETED, FAILED, REFUNDED, CANCELLED
-  
+  id          String @id @default(uuid())
+  orderNumber String @unique
+
+  userId String? // Optional for guest checkout
+  user   User?   @relation(fields: [userId], references: [id])
+
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
+
+  status String @default("PENDING") // PENDING, COMPLETED, FAILED, REFUNDED, CANCELLED
+
   // Pricing
-  itemsSubtotal Int      // In cents
-  discount      Int      @default(0)
-  fees          Int      @default(0)
-  tax           Int      @default(0)
-  totalAmount   Int      // In cents
-  currency      String   @default("USD")
-  
+  itemsSubtotal Int // In cents
+  discount      Int    @default(0)
+  fees          Int    @default(0)
+  tax           Int    @default(0)
+  totalAmount   Int // In cents
+  currency      String @default("USD")
+
   // Customer Info (snapshot for history)
   customerEmail String
   customerName  String
   customerPhone String?
-  
+
   // Billing
   billingAddress String? // JSON
-  
+
   // Promo
-  promoCode     String?
-  
-  items         OrderItem[]
-  tickets       Ticket[]
-  
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  promoCode String?
+
+  items   OrderItem[]
+  tickets Ticket[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model OrderItem {
-  id           String     @id @default(uuid())
-  orderId      String
-  order        Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  
+  id      String @id @default(uuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
   ticketTypeId String
   ticketType   TicketType @relation(fields: [ticketTypeId], references: [id])
-  
+
   quantity     Int
-  pricePerItem Int        // In cents, snapshot at purchase
-  subtotal     Int        // quantity * pricePerItem
-  
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  pricePerItem Int // In cents, snapshot at purchase
+  subtotal     Int // quantity * pricePerItem
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Ticket {
-  id           String   @id @default(uuid())
-  orderId      String
-  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  
-  ticketNumber String   @unique
-  qrCode       String   @unique // QR code for validation
-  
-  ticketType   String   // Snapshot
-  eventTitle   String   // Snapshot
-  eventDate    DateTime // Snapshot
-  
+  id      String @id @default(uuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  ticketNumber String @unique
+  qrCode       String @unique // QR code for validation
+
+  ticketType String // Snapshot
+  eventTitle String // Snapshot
+  eventDate  DateTime // Snapshot
+
   attendeeEmail String?
   attendeeName  String?
-  
-  status       String   @default("VALID") // VALID, USED, CANCELLED, REFUNDED
-  scannedAt    DateTime?
-  
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+
+  status    String    @default("VALID") // VALID, USED, CANCELLED, REFUNDED
+  scannedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
