@@ -133,6 +133,7 @@ export default function EventsSearchPage() {
                 type="text"
                 value={filters.query}
                 onChange={(e) => handleFilterChange('query', e.target.value)}
+                onKeyPress={handleKeyPress}
                 placeholder="Search events, venues, or artists..."
                 className="w-full pl-10 pr-4 py-3 border dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
               />

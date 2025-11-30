@@ -20,11 +20,21 @@ export async function GET(request: NextRequest) {
     }
 
     // Text search (SQLite doesn't support case-insensitive mode, so we use contains)
+    // Also search in venue name and city
     if (query) {
       where.OR = [
         { title: { contains: query } },
         { description: { contains: query } },
         { shortDescription: { contains: query } },
+        {
+          venue: {
+            OR: [
+              { name: { contains: query } },
+              { city: { contains: query } },
+              { address: { contains: query } }
+            ]
+          }
+        }
       ]
     }
 
