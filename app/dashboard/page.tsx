@@ -142,7 +142,7 @@ export default async function DashboardPage() {
             </div>
           </Link>
 
-          {session.user?.role === 'ORGANIZER' && (
+          {user.role === 'ORGANIZER' && (
             <Link 
               href="/organizer/events/create"
               className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
