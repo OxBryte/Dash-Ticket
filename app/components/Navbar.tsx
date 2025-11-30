@@ -4,10 +4,12 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { Calendar, Search, User, LogOut } from 'lucide-react'
 import CartDrawer from './cart/CartDrawer'
-import { useSession, signOut } from 'next-auth/react'
+import { useAuth } from '@/app/lib/auth-context'
+import { useRouter } from 'next/navigation'
 
 export default function Navbar() {
-  const { data: session } = useSession()
+  const { user } = useAuth()
+  const router = useRouter()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
