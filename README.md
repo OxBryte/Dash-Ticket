@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎫 Ticketing App
 
-## Getting Started
+A modern ticket management system built with Next.js 15, Tailwind CSS, and TanStack Query.
 
-First, run the development server:
+## ✨ Features
 
+- **Next.js 15** - Latest version with App Router and React Server Components
+- **Tailwind CSS** - Beautiful, responsive design with utility-first CSS
+- **TanStack Query** - Powerful data fetching and state management
+- **TypeScript** - Full type safety throughout the application
+- **Auto-commit Script** - Automated git commits every 3 seconds
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn package manager
+
+### Installation
+
+1. Navigate to the project directory:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd /Users/mac/development/ticketing-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies (already done):
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-## Learn More
+## 🤖 Auto-Commit Script
 
-To learn more about Next.js, take a look at the following resources:
+This project includes an auto-commit script that automatically commits changes every 3 seconds.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Running the Auto-Commit Script
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+./auto-commit.sh
+```
 
-## Deploy on Vercel
+The script will:
+- Monitor file changes every 3 seconds
+- Automatically stage and commit changes
+- Use commit messages in the format: `feat: updated (filename)`
+- Display status messages with timestamps
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Stopping the Auto-Commit Script
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Press `Ctrl+C` to stop the auto-commit script.
+
+## 📁 Project Structure
+
+```
+ticketing-app/
+├── app/
+│   ├── layout.tsx          # Root layout with TanStack Query provider
+│   ├── page.tsx            # Home page
+│   ├── providers.tsx       # TanStack Query client provider
+│   └── globals.css         # Global styles
+├── public/                 # Static assets
+├── auto-commit.sh          # Auto-commit script
+├── tailwind.config.ts      # Tailwind CSS configuration
+├── tsconfig.json           # TypeScript configuration
+└── package.json            # Project dependencies
+```
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: TanStack Query (React Query)
+- **Package Manager**: npm
+
+## 📝 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `./auto-commit.sh` - Run auto-commit script
+
+## 🎨 Customization
+
+### Modifying the Home Page
+
+Edit `app/page.tsx` to customize the home page content and layout.
+
+### Adding New Pages
+
+Create new files in the `app/` directory to add new routes.
+
+### Styling
+
+This project uses Tailwind CSS. Modify `tailwind.config.ts` for custom theme configuration.
+
+## 📚 Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [TanStack Query Documentation](https://tanstack.com/query/latest)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+
+## 🚢 Deployment
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new).
+
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## 📄 License
+
+This project is open source and available under the MIT License.
