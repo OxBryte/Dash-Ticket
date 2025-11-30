@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "postgresql://neondb_owner:npg_P97CfZsLRonl@ep-patient-cherry-ahycqg1i-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+  url      = "postgresql://neondb_owner:npg_P97CfZsLRonl@ep-patient-cherry-ahycqg1i-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
 }
 
 model User {
