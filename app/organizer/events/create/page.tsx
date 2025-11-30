@@ -377,7 +377,7 @@ export default function CreateEventPage() {
                     name="venueState"
                     value={formData.venueState}
                     onChange={handleInputChange}
-                    placeholder="NY"
+                    placeholder="State"
                     className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
                     required
                   />
