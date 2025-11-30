@@ -22,6 +22,7 @@ export default function CreateEventPage() {
     shortDescription: '',
     description: '',
     category: 'OTHER',
+    status: 'ON_SALE',
     startDate: '',
     startTime: '',
     endDate: '',
@@ -137,7 +138,7 @@ export default function CreateEventPage() {
         ageRestriction: formData.ageRestriction,
         refundPolicy: formData.refundPolicy,
         imageUrl: formData.imageUrl || null,
-        status: 'ON_SALE', // Events go live immediately
+        status: formData.status || 'ON_SALE',
         venue: {
           name: formData.venueName,
           address: formData.venueAddress,
