@@ -398,10 +398,14 @@ async function main() {
   }
 
   // Create some promo codes
+  const techEvent = await prisma.event.findFirst({ 
+    where: { title: 'TechCrunch Disrupt 2025' } 
+  })
+
   const promoCodes = [
     {
       code: 'EARLYBIRD2025',
-      eventId: events[5].venueId ? (await prisma.event.findFirst({ where: { title: 'TechCrunch Disrupt 2025' } }))?.id : null,
+      eventId: techEvent?.id || null,
       discountType: 'PERCENTAGE',
       discountValue: 15, // 15% off
       usageLimit: 100,
