@@ -12,6 +12,9 @@ export default function SignInPage() {
   const callbackUrl = searchParams.get('callbackUrl') || '/'
   const { refetch } = useAuth()
   
+  // Handle registered query param
+  const registered = searchParams.get('registered')
+  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
