@@ -25,6 +25,7 @@ export default function Footer() {
               Support
             </h3>
             <ul className="mt-4 space-y-4">
+              <li><a href="/orders" className="text-base text-gray-500 hover:text-gray-900">Track Order</a></li>
               <li><a href="#" className="text-base text-gray-500 hover:text-gray-900">Help Center</a></li>
               <li><a href="#" className="text-base text-gray-500 hover:text-gray-900">Contact</a></li>
             </ul>
