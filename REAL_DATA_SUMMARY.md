@@ -4,45 +4,6 @@
 
 Your ticketing platform now uses **100% real, professional data** instead of placeholders.
 
----
-
-## 🎤 **Real Events (6 Events)**
-
-### 1. **Taylor Swift | The Eras Tour**
-- **Venue**: Madison Square Garden, New York
-- **Date**: June 15, 2025
-- **Tickets**: Upper Level ($149), Lower Level ($299), Floor ($499), VIP ($999)
-- **Organizer**: Live Nation Entertainment
-
-### 2. **Coldplay: Music of the Spheres World Tour**
-- **Venue**: Red Rocks Amphitheatre, Morrison, CO
-- **Date**: July 22, 2025
-- **Tickets**: General Admission ($125), Reserved Seating ($199)
-- **Organizer**: Live Nation Entertainment
-
-### 3. **Arctic Monkeys Live**
-- **Venue**: The Fillmore, San Francisco
-- **Date**: August 10, 2025
-- **Tickets**: General Admission ($75), Balcony Reserved ($125)
-- **Organizer**: Live Nation Entertainment
-
-### 4. **Chicago Cubs vs. Los Angeles Dodgers**
-- **Venue**: Wrigley Field, Chicago
-- **Date**: September 14, 2025
-- **Tickets**: Bleachers ($35), Upper Deck ($55), Lower Deck ($85), Club Level ($150)
-- **Organizer**: Madison Square Garden
-
-### 5. **John Williams: Film Night at the Hollywood Bowl**
-- **Venue**: The Hollywood Bowl, Los Angeles
-- **Date**: July 4, 2025
-- **Tickets**: Garden Box ($250), Pool Circle ($175), Terrace ($95), Bench ($35)
-- **Organizer**: Live Nation Entertainment
-
-### 6. **TechCrunch Disrupt 2025**
-- **Venue**: Moscone Center, San Francisco
-- **Date**: September 18-20, 2025
-- **Tickets**: Early Bird ($999), Regular ($1,499), Student ($299), VIP ($2,999)
-- **Organizer**: Tech Summit Productions
 
 ---
 
