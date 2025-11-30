@@ -68,3 +68,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 })
 
+export const { GET, POST } = handlers
