@@ -90,7 +90,17 @@ export default function EventsSearchPage() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
+    setIsLoading(true)
     fetchEvents()
+  }
+
+  // Also allow search on Enter key
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      setIsLoading(true)
+      fetchEvents()
+    }
   }
 
   const handleFilterChange = (key: string, value: string) => {
