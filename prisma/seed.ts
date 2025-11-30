@@ -147,62 +147,7 @@ async function main() {
   console.log(`Created ${createdVenues.length} venues`);
 
   // Create Real Events
-  const events = [
-  
-    {
-      title: "TechCrunch Disrupt 2025",
-      shortDescription: "The world's leading technology innovation conference",
-      description:
-        "Join thousands of entrepreneurs, investors, and tech leaders at TechCrunch Disrupt 2025. Features include startup pitch competitions, keynote speakers from top tech companies, networking events, and an expo hall showcasing the latest innovations. Three days of panels, workshops, and opportunities to connect with the tech community.",
-      category: "CONFERENCE",
-      status: "ON_SALE",
-      startDate: new Date("2025-09-18T09:00:00-07:00"),
-      endDate: new Date("2025-09-20T18:00:00-07:00"),
-      doorsOpen: new Date("2025-09-18T08:00:00-07:00"),
-      timezone: "America/Los_Angeles",
-      ageRestriction: "ALL_AGES",
-      refundPolicy:
-        "Full refunds available up to 30 days before the event. 50% refund between 30-14 days. No refunds within 14 days.",
-      organizerId: organizer3.id,
-      venueId: createdVenues[5].id, // Moscone Center
-      ticketTypes: [
-        {
-          name: "Early Bird Pass",
-          description:
-            "Full 3-day access to all sessions, expo hall, and networking events. Includes lunch and coffee breaks.",
-          price: 99900, // $999
-          quantityTotal: 500,
-          maxPerOrder: 5,
-          saleStart: new Date("2025-01-01T00:00:00-07:00"),
-          saleEnd: new Date("2025-06-01T23:59:59-07:00"),
-        },
-        {
-          name: "Regular Pass",
-          description:
-            "Full 3-day access to all sessions, expo hall, and networking events",
-          price: 149900, // $1,499
-          quantityTotal: 3000,
-          maxPerOrder: 5,
-        },
-        {
-          name: "Student Pass",
-          description:
-            "Discounted 3-day pass for students with valid ID. Full access to all sessions.",
-          price: 29900, // $299
-          quantityTotal: 500,
-          maxPerOrder: 2,
-        },
-        {
-          name: "VIP Pass",
-          description:
-            "Includes all regular pass benefits plus VIP lounge access, reserved seating, exclusive networking dinner, and swag bag",
-          price: 299900, // $2,999
-          quantityTotal: 100,
-          maxPerOrder: 2,
-        },
-      ],
-    },
-  ];
+  const events = [];
 
   for (const eventData of events) {
     const { ticketTypes, ...eventInfo } = eventData;
