@@ -77,6 +77,13 @@ export default function EventsSearchPage() {
   useEffect(() => {
     fetchEvents()
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Run once on mount
+
+  useEffect(() => {
+    if (!isLoading) { // Only refetch if not initial load
+      fetchEvents()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.category, filters.sortBy])
 
   const handleSearch = (e: React.FormEvent) => {
