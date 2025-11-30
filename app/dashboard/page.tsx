@@ -1,21 +1,20 @@
 import { redirect } from 'next/navigation'
-import { authOptions } from '@/auth'
-import { getServerSession } from 'next-auth'
+import { getCurrentUser } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
 import Link from 'next/link'
 import { Calendar, Ticket, DollarSign, TrendingUp, Package, Clock, CheckCircle, XCircle } from 'lucide-react'
 import { format } from 'date-fns'
 
 export default async function DashboardPage() {
-  const session = await getServerSession(authOptions)
+  const user = await getCurrentUser()
   
-  if (!session?.user?.email) {
+  if (!user?.email) {
     redirect('/auth/signin')
   }
 
   // Fetch user's orders
   const orders = await prisma.order.findMany({
-    where: { customerEmail: session.user.email },
+    where: { customerEmail: user.email },
     include: {
       event: {
         include: {
