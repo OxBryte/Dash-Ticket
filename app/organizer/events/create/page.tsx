@@ -97,11 +97,32 @@ export default function CreateEventPage() {
         return
       }
 
-      // Combine date and time
+      // Combine date and time - validate before creating Date
+      if (!formData.startDate || !formData.startTime) {
+        alert('Please select both start date and time')
+        setIsSubmitting(false)
+        return
+      }
+      
       const startDateTime = new Date(`${formData.startDate}T${formData.startTime}`)
+      
+      // Validate the date is valid
+      if (isNaN(startDateTime.getTime())) {
+        alert('Invalid start date/time')
+        setIsSubmitting(false)
+        return
+      }
+      
       const endDateTime = formData.endDate && formData.endTime 
         ? new Date(`${formData.endDate}T${formData.endTime}`)
         : null
+        
+      // Validate end date if provided
+      if (endDateTime && isNaN(endDateTime.getTime())) {
+        alert('Invalid end date/time')
+        setIsSubmitting(false)
+        return
+      }
 
       // In production, would handle venue creation/selection properly
       // For now, creating inline
