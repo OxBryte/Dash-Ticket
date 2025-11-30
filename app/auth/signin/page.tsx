@@ -66,6 +66,13 @@ export default function SignInPage() {
               create a new account
             </Link>
           </p>
+          {registered === 'true' && (
+            <div className="mt-4 rounded-md bg-green-50 dark:bg-green-900/20 p-4">
+              <p className="text-sm text-green-800 dark:text-green-200">
+                Account created successfully! Please sign in.
+              </p>
+            </div>
+          )}
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
