@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import { authOptions } from '@/auth'
+import { auth } from '@/auth'
 import { prisma } from '@/app/lib/prisma'
 import Link from 'next/link'
 import { Calendar, Ticket, DollarSign, TrendingUp, Package, Clock, CheckCircle, XCircle } from 'lucide-react'
