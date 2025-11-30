@@ -263,6 +263,24 @@ export default function CreateEventPage() {
                     <option value="21+">21+</option>
                   </select>
                 </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-1">Event Status</label>
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                  >
+                    <option value="ON_SALE">On Sale (Published)</option>
+                    <option value="DRAFT">Draft (Not Published)</option>
+                  </select>
+                  <p className="mt-1 text-xs text-gray-500">
+                    {formData.status === 'DRAFT' 
+                      ? 'Event will be saved but not visible to customers'
+                      : 'Event will be immediately visible in the events list'}
+                  </p>
+                </div>
               </div>
 
               <div>
