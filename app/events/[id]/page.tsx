@@ -105,7 +105,11 @@ export default async function EventPage({ params }: EventPageProps) {
 
           {/* Sidebar: Tickets */}
           <div className="lg:col-span-1">
-            <TicketSelector ticketTypes={event.ticketTypes} eventId={event.id} />
+            <TicketSelector 
+              ticketTypes={event.ticketTypes} 
+              eventId={event.id} 
+              eventTitle={event.title}
+            />
             
             {event.venue && (
                 <div className="mt-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
