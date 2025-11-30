@@ -150,7 +150,7 @@ async function main() {
   const events: Event[] = [];
 
   for (const eventData of events) {
-    const { ticketTypes, ...eventInfo } = eventData;
+    const { ticketTypes } = eventData as Event & { ticketTypes: TicketType[] };
     const event = await prisma.event.create({
       data: {
         ...eventInfo,
