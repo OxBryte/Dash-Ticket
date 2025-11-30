@@ -33,10 +33,10 @@ export async function GET(request: NextRequest) {
       where.category = category
     }
 
-    // City filter
+    // City filter (SQLite doesn't support case-insensitive mode)
     if (city) {
       where.venue = {
-        city: { contains: city, mode: 'insensitive' }
+        city: { contains: city }
       }
     }
 
