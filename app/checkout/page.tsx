@@ -81,13 +81,29 @@ export default function CheckoutPage() {
   }
 
   const handleApplyPromo = async () => {
-    // Simulate promo code validation
-    if (formData.promoCode.toUpperCase() === 'SAVE10') {
-      setPromoDiscount(Math.round(subtotal * 0.1))
-      setPromoApplied(true)
-      alert('Promo code applied! 10% discount')
-    } else {
-      alert('Invalid promo code')
+    // Validate promo code via API
+    try {
+      const response = await fetch(`/api/promo-codes?code=${formData.promoCode}&eventId=${items[0]?.eventId}`)
+      const result = await response.json()
+      
+      if (response.ok && result.valid) {
+        // Calculate discount
+        let discount = 0
+        if (result.discountType === 'PERCENTAGE') {
+          discount = Math.round(subtotal * (result.discountValue / 100))
+        } else if (result.discountType === 'FIXED_AMOUNT') {
+          discount = result.discountValue // Already in cents
+        }
+        
+        setPromoDiscount(discount)
+        setPromoApplied(true)
+        alert(`Promo code applied! You saved ${formatPrice(discount)}`)
+      } else {
+        alert(result.error || 'Invalid promo code')
+      }
+    } catch (error) {
+      console.error('Promo code error:', error)
+      alert('Failed to apply promo code')
     }
   }
 
