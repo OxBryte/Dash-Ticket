@@ -38,9 +38,7 @@ export default function Navbar() {
               Find Events
             </Link>
             
-            <button className="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
-              <ShoppingCart className="h-6 w-6" />
-            </button>
+            <CartDrawer />
             
             <button className="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
               <User className="h-6 w-6" />
