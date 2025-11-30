@@ -1,115 +1,61 @@
-import ExampleQuery from './components/ExampleQuery'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import { prisma } from '@/app/lib/prisma'
+import EventCard from '@/app/components/events/EventCard'
 
-export default function Home() {
+export default async function Home() {
+  // Fetch 3 featured events
+  const featuredEvents = await prisma.event.findMany({
+    where: { status: 'ON_SALE' },
+    take: 3,
+    orderBy: { startDate: 'asc' },
+    include: { venue: true, ticketTypes: true }
+  })
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <main className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-4">
-              🎫 Ticketing App
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              A modern ticket management system built with Next.js, Tailwind CSS, and TanStack Query
-            </p>
-          </div>
-
-          {/* Features Grid */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4">⚡</div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                Next.js 15
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Built with the latest Next.js features and App Router
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4">🎨</div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                Tailwind CSS
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Beautiful, responsive design with utility-first CSS
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4">🔄</div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                TanStack Query
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Powerful data fetching and state management
-              </p>
-            </div>
-          </div>
-
-          {/* Getting Started */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg mb-12">
-            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              Getting Started
-            </h2>
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
-                  1
-                </span>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">
-                    Start the development server
-                  </h3>
-                  <code className="block mt-2 bg-gray-100 dark:bg-gray-900 p-2 rounded text-sm">
-                    npm run dev
-                  </code>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
-                  2
-                </span>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">
-                    Run auto-commit script (optional)
-                  </h3>
-                  <code className="block mt-2 bg-gray-100 dark:bg-gray-900 p-2 rounded text-sm">
-                    ./auto-commit.sh
-                  </code>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
-                  3
-                </span>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">
-                    Start building your features
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mt-2">
-                    Edit app/page.tsx to begin customizing this application
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* TanStack Query Demo */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              🔄 TanStack Query Demo
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Live example of data fetching with TanStack Query
-            </p>
-            <ExampleQuery />
-          </div>
+    <div className="flex flex-col min-h-[calc(100vh-4rem)]">
+      {/* Hero Section */}
+      <section className="bg-blue-600 text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Live Experiences, Unforgettable Memories
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
+            Discover and book tickets for the best concerts, festivals, conferences, and more.
+          </p>
+          <Link 
+            href="/events" 
+            className="inline-flex items-center bg-white text-blue-600 hover:bg-blue-50 font-bold py-3 px-8 rounded-full text-lg transition-colors"
+          >
+            Find Events
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Link>
         </div>
-      </main>
+      </section>
+
+      {/* Featured Events */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 flex-grow">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-end mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Featured Events</h2>
+            <Link href="/events" className="text-blue-600 hover:text-blue-700 font-medium flex items-center">
+              View all <ArrowRight className="ml-1 w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {featuredEvents.map(event => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+
+          {featuredEvents.length === 0 && (
+            <div className="text-center py-12 text-gray-500">
+              No featured events at the moment. Check back soon!
+            </div>
+          )}
+        </div>
+      </section>
     </div>
-  );
+  )
 }
