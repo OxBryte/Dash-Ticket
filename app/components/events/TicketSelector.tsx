@@ -3,24 +3,33 @@
 import { useState } from 'react'
 import { Prisma } from '@prisma/client'
 import { Minus, Plus, ShoppingCart } from 'lucide-react'
+import { useCartStore } from '@/app/store/cartStore'
 
 type TicketType = Prisma.TicketTypeGetPayload<{}>
 
 interface TicketSelectorProps {
   ticketTypes: TicketType[]
   eventId: string
+  eventTitle: string
 }
 
-export default function TicketSelector({ ticketTypes, eventId }: TicketSelectorProps) {
+export default function TicketSelector({ ticketTypes, eventId, eventTitle }: TicketSelectorProps) {
   const [quantities, setQuantities] = useState<Record<string, number>>({})
   const [isAdding, setIsAdding] = useState(false)
+  
+  const { addItem } = useCartStore()
 
   const handleQuantityChange = (ticketId: string, delta: number) => {
+    const ticket = ticketTypes.find(t => t.id === ticketId)
+    if (!ticket) return
+    
     setQuantities(prev => {
       const current = prev[ticketId] || 0
       const newVal = Math.max(0, current + delta)
-      // Check max per order if needed (simplified here)
-      if (newVal > 10) return current 
+      const maxAllowed = Math.min(ticket.maxPerOrder, ticket.quantityTotal - ticket.quantitySold - ticket.quantityHeld)
+      
+      if (newVal > maxAllowed) return prev
+      
       return { ...prev, [ticketId]: newVal }
     })
   }
@@ -39,14 +48,36 @@ export default function TicketSelector({ ticketTypes, eventId }: TicketSelectorP
 
   const handleAddToCart = async () => {
     setIsAdding(true)
-    // TODO: Implement actual cart logic
-    console.log('Adding to cart:', { eventId, quantities })
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    setIsAdding(false)
-    alert(`Added ${totalTickets} tickets to cart!`)
+    try {
+      // Add each ticket type to cart
+      Object.entries(quantities).forEach(([ticketTypeId, quantity]) => {
+        if (quantity > 0) {
+          const ticket = ticketTypes.find(t => t.id === ticketTypeId)
+          if (ticket) {
+            addItem({
+              ticketTypeId: ticket.id,
+              ticketTypeName: ticket.name,
+              price: ticket.price,
+              eventId,
+              eventTitle,
+              maxPerOrder: ticket.maxPerOrder,
+            }, quantity)
+          }
+        }
+      })
+      
+      // Reset quantities
+      setQuantities({})
+      
+      // Show success message (you could use a toast library here)
+      alert(`Added ${totalTickets} ticket(s) to cart!`)
+    } catch (error) {
+      console.error('Error adding to cart:', error)
+      alert('Failed to add tickets to cart')
+    } finally {
+      setIsAdding(false)
+    }
   }
 
   return (
