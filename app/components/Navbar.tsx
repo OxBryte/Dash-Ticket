@@ -44,9 +44,50 @@ export default function Navbar() {
             
             <CartDrawer />
             
-            <button className="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
-              <User className="h-6 w-6" />
-            </button>
+            {session ? (
+              <div className="flex items-center gap-2">
+                <Link 
+                  href="/organizer/events/create"
+                  className="hidden md:block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Create Event
+                </Link>
+                <div className="relative group">
+                  <button className="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 flex items-center gap-2">
+                    <User className="h-6 w-6" />
+                    <span className="hidden md:inline text-sm">{session.user?.name}</span>
+                  </button>
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 hidden group-hover:block">
+                    <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border-b dark:border-gray-700">
+                      {session.user?.email}
+                    </div>
+                    <Link href="/orders" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      My Orders
+                    </Link>
+                    {session.user?.role === 'ORGANIZER' && (
+                      <Link href="/organizer/events/create" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        Create Event
+                      </Link>
+                    )}
+                    <button
+                      onClick={() => signOut()}
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link 
+                href="/auth/signin"
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium"
+              >
+                <User className="h-4 w-4" />
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       </div>
