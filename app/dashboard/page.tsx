@@ -7,7 +7,7 @@ import { Calendar, Ticket, DollarSign, TrendingUp, Package, Clock, CheckCircle, 
 import { format } from 'date-fns'
 
 export default async function DashboardPage() {
-  const session = await auth()
+  const session = await getServerSession(authOptions)
   
   if (!session?.user?.email) {
     redirect('/auth/signin')
