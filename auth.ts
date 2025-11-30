@@ -3,8 +3,9 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "@/app/lib/prisma"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
+import type { NextAuthConfig } from "next-auth"
 
-const nextAuth = NextAuth({
+const config: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
@@ -66,6 +67,6 @@ const nextAuth = NextAuth({
       return session
     },
   },
-})
+}
 
-export const { handlers, signIn, signOut, auth } = nextAuth
+export const { handlers, signIn, signOut, auth } = NextAuth(config)
