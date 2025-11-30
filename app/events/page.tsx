@@ -50,15 +50,25 @@ export default function EventsSearchPage() {
     setIsLoading(true)
     try {
       const params = new URLSearchParams()
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value) params.append(key, value.toString())
-      })
+      // Map query to q for API
+      if (filters.query) params.append('q', filters.query)
+      if (filters.category && filters.category !== 'ALL') params.append('category', filters.category)
+      if (filters.city) params.append('city', filters.city)
+      if (filters.startDate) params.append('startDate', filters.startDate)
+      if (filters.endDate) params.append('endDate', filters.endDate)
+      if (filters.minPrice) params.append('minPrice', filters.minPrice)
+      if (filters.maxPrice) params.append('maxPrice', filters.maxPrice)
+      if (filters.sortBy) params.append('sortBy', filters.sortBy)
 
       const response = await fetch(`/api/events/search?${params}`)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
       const data = await response.json()
       setEvents(data)
     } catch (error) {
       console.error('Failed to fetch events:', error)
+      setEvents([]) // Set empty array on error
     } finally {
       setIsLoading(false)
     }
