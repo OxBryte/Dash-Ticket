@@ -462,7 +462,7 @@ export default function CreateEventPage() {
                         type="text"
                         value={ticket.description}
                         onChange={(e) => handleTicketTypeChange(ticket.id, 'description', e.target.value)}
-                        placeholder="What's included with this ticket"
+                        placeholder="Optional description"
                         className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
                       />
                     </div>
