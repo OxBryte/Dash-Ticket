@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { signIn, signOut } from '@/app/lib/auth'
+import { cookies } from 'next/headers'
+import { signIn } from '@/app/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,6 +15,15 @@ export async function POST(request: NextRequest) {
     if (result.error) {
       return NextResponse.json({ error: result.error }, { status: 401 })
     }
+
+    // Set auth cookie using async cookies API
+    const cookieStore = await cookies()
+    cookieStore.set('auth-token', result.token as string, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    })
 
     return NextResponse.json({ success: true, user: result.user })
   } catch (error) {
