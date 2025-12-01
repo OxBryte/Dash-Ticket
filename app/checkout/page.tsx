@@ -156,7 +156,7 @@ export default function CheckoutPage() {
     setIsProcessing(true)
     
     try {
-      // Simulate API call to create order
+      // API call to create order
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -191,12 +191,13 @@ export default function CheckoutPage() {
         setOrderId(order.orderNumber)
         clearCart()
         setCurrentStep(4)
+        toast.success('Order completed successfully!')
       } else {
         throw new Error(order.error || 'Failed to create order')
       }
     } catch (error) {
       console.error('Order creation failed:', error)
-      alert('Payment failed. Please try again.')
+      toast.error('Payment failed. Please try again.')
     } finally {
       setIsProcessing(false)
     }
