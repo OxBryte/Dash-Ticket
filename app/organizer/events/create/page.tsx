@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Calendar, MapPin, DollarSign, Ticket, Plus, X } from 'lucide-react'
+import { toast } from 'react-hot-toast'
 
 interface TicketTypeForm {
   id: string
@@ -93,14 +94,14 @@ export default function CreateEventPage() {
     try {
       // Validate required fields
       if (!formData.title || !formData.startDate || !formData.startTime) {
-        alert('Please fill in all required fields')
+        toast.error('Please fill in all required fields')
         setIsSubmitting(false)
         return
       }
 
       // Combine date and time - validate before creating Date
       if (!formData.startDate || !formData.startTime) {
-        alert('Please select both start date and time')
+        toast.error('Please select both start date and time')
         setIsSubmitting(false)
         return
       }
@@ -109,7 +110,7 @@ export default function CreateEventPage() {
       
       // Validate the date is valid
       if (isNaN(startDateTime.getTime())) {
-        alert('Invalid start date/time')
+        toast.error('Invalid start date/time')
         setIsSubmitting(false)
         return
       }
@@ -120,7 +121,7 @@ export default function CreateEventPage() {
         
       // Validate end date if provided
       if (endDateTime && isNaN(endDateTime.getTime())) {
-        alert('Invalid end date/time')
+        toast.error('Invalid end date/time')
         setIsSubmitting(false)
         return
       }
@@ -166,14 +167,14 @@ export default function CreateEventPage() {
       const result = await response.json()
 
       if (response.ok) {
-        alert('Event created successfully!')
+        toast.success('Event created successfully!')
         router.push(`/events/${result.id}`)
       } else {
         throw new Error(result.error || 'Failed to create event')
       }
     } catch (error) {
       console.error('Event creation error:', error)
-      alert('Failed to create event. Please try again.')
+      toast.error('Failed to create event. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
