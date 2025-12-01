@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useCartStore } from '@/app/store/cartStore'
 import { useRouter } from 'next/navigation'
 import { Check } from 'lucide-react'
+import { toast } from 'react-hot-toast'
 
 const steps = [
   { id: 1, name: 'Review Cart', description: 'Review your tickets' },
@@ -97,40 +98,41 @@ export default function CheckoutPage() {
         
         setPromoDiscount(discount)
         setPromoApplied(true)
-        alert(`Promo code applied! You saved ${formatPrice(discount)}`)
+        toast.success(`Promo code applied! You saved ${formatPrice(discount)}`)
       } else {
-        alert(result.error || 'Invalid promo code')
+        const message = result.error || 'Invalid promo code'
+        toast.error(message)
       }
     } catch (error) {
       console.error('Promo code error:', error)
-      alert('Failed to apply promo code')
+      toast.error('Failed to apply promo code')
     }
   }
 
   const validateStep = (step: number): boolean => {
     if (step === 2) {
       if (!formData.email || !formData.confirmEmail || !formData.firstName || !formData.lastName) {
-        alert('Please fill in all required fields')
+        toast.error('Please fill in all required fields')
         return false
       }
       if (formData.email !== formData.confirmEmail) {
-        alert('Email addresses do not match')
+        toast.error('Email addresses do not match')
         return false
       }
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(formData.email)) {
-        alert('Please enter a valid email address')
+        toast.error('Please enter a valid email address')
         return false
       }
     }
     
     if (step === 3) {
       if (!formData.cardNumber || !formData.cardExpiry || !formData.cardCvc || !formData.cardName) {
-        alert('Please fill in all payment details')
+        toast.error('Please fill in all payment details')
         return false
       }
       if (!formData.address || !formData.city || !formData.state || !formData.zip) {
-        alert('Please fill in billing address')
+        toast.error('Please fill in billing address')
         return false
       }
     }
