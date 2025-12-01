@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",
+    "@reown/appkit": "^1.8.14",
+    "@reown/appkit-adapter-wagmi": "^1.8.14",
     "@tanstack/react-query": "^5.90.11",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
@@ -23,6 +25,8 @@
     "react-hook-form": "^7.67.0",
     "react-hot-toast": "^2.6.0",
     "tailwind-merge": "^3.4.0",
+    "viem": "^2.40.3",
+    "wagmi": "^3.0.2",
     "zod": "^4.1.13",
     "zustand": "^5.0.9"
   },
