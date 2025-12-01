@@ -6,32 +6,6 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Start seeding with real data...")
 
-  // Create some promo codes
-  const techEvent = await prisma.event.findFirst({
-    where: { title: "TechCrunch Disrupt 2025" },
-  });
-
-  const promoCodes = [
-    {
-      code: "EARLYBIRD2025",
-      eventId: techEvent?.id || null,
-      discountType: "PERCENTAGE",
-      discountValue: 15, // 15% off
-      usageLimit: 100,
-      validFrom: new Date("2025-01-01"),
-      validUntil: new Date("2025-06-01"),
-      minimumPurchase: 1,
-    },
-    {
-      code: "SUMMER25",
-      discountType: "FIXED_AMOUNT",
-      discountValue: 2000, // $20 off
-      usageLimit: 500,
-      validFrom: new Date("2025-06-01"),
-      validUntil: new Date("2025-08-31"),
-      minimumPurchase: 5000, // Minimum $50 purchase
-    },
-  ];
 
   for (const promo of promoCodes) {
     await prisma.promoCode.create({
