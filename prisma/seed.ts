@@ -6,42 +6,6 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Start seeding with real data...")
 
-  const createdVenues = [];
-  for (const venue of venues) {
-    // Check if venue exists by name and address
-    const existing = await prisma.venue.findFirst({
-      where: {
-        name: venue.name,
-        address: venue.address,
-      },
-    });
-
-    const v =
-      existing ||
-      (await prisma.venue.create({
-        data: venue,
-      }));
-    createdVenues.push(v);
-  }
-
-  console.log(`Created ${createdVenues.length} venues`);
-
-  // Create Real Events
-  const events: Event[] = [];
-
-  for (const eventData of events) {
-    const { ticketTypes, ...eventInfo } = eventData as Event & { ticketTypes: TicketType[] };
-    const event = await prisma.event.create({
-      data: {
-        ...eventInfo,
-        ticketTypes: {
-          create: ticketTypes,
-        },
-      },
-    });
-    console.log(`Created event: ${event.title}`);
-  }
-
   // Create some promo codes
   const techEvent = await prisma.event.findFirst({
     where: { title: "TechCrunch Disrupt 2025" },
