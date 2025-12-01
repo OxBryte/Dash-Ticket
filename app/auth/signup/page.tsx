@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { UserPlus } from 'lucide-react'
+import { toast } from 'react-hot-toast'
 
 export default function SignUpPage() {
   const router = useRouter()
@@ -28,12 +29,16 @@ export default function SignUpPage() {
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match')
+      const message = 'Passwords do not match'
+      setError(message)
+      toast.error(message)
       return
     }
 
     if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters')
+      const message = 'Password must be at least 8 characters'
+      setError(message)
+      toast.error(message)
       return
     }
 
@@ -54,13 +59,18 @@ export default function SignUpPage() {
       const data = await response.json()
 
       if (response.ok) {
+        toast.success('Account created successfully! Please sign in.')
         // Redirect to sign in
         router.push('/auth/signin?registered=true')
       } else {
-        setError(data.error || 'Failed to create account')
+        const message = data.error || 'Failed to create account'
+        setError(message)
+        toast.error(message)
       }
     } catch (error) {
-      setError('An error occurred. Please try again.')
+      const message = 'An error occurred. Please try again.'
+      setError(message)
+      toast.error(message)
     } finally {
       setIsLoading(false)
     }
