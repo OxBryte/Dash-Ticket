@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log("Start seeding with real data...")
-  ];
 
   const createdVenues = [];
   for (const venue of venues) {
