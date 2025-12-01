@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { LogIn } from 'lucide-react'
 import { useAuth } from '@/app/lib/auth-context'
+import { toast } from 'react-hot-toast'
 
 export default function SignInPage() {
   const router = useRouter()
@@ -36,13 +37,18 @@ export default function SignInPage() {
 
       if (response.ok) {
         await refetch()
+        toast.success('Signed in successfully')
         router.push(callbackUrl)
         router.refresh()
       } else {
-        setError(data.error || 'Invalid email or password')
+        const message = data.error || 'Invalid email or password'
+        setError(message)
+        toast.error(message)
       }
     } catch (error) {
-      setError('An error occurred. Please try again.')
+      const message = 'An error occurred. Please try again.'
+      setError(message)
+      toast.error(message)
     } finally {
       setIsLoading(false)
     }
