@@ -6,22 +6,6 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Start seeding with real data...");
 
-  ription:
-        "Iconic outdoor amphitheater in the Hollywood Hills. Hosts world-class concerts and events year-round.",
-    },
-    {
-      name: "Moscone Center",
-      address: "747 Howard St",
-      city: "San Francisco",
-      state: "CA",
-      zip: "94103",
-      country: "USA",
-      capacity: 20000,
-      latitude: 37.7849,
-      longitude: -122.4008,
-      description:
-        "Premier convention center in downtown San Francisco. Hosts major tech conferences and trade shows.",
-    },
   ];
 
   const createdVenues = [];
