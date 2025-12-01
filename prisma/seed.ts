@@ -7,40 +7,7 @@ async function main() {
   console.log("Start seeding with real data...");
 
   // Create Real Organizers
- 
 
-  console.log(
-    `Created organizers: ${organizer1.name}, ${organizer2.name}, ${organizer3.name}`
-  );
-
-  // Create Real Venues
-  const venues = [
-    {
-      name: "Madison Square Garden",
-      address: "4 Pennsylvania Plaza",
-      city: "New York",
-      state: "NY",
-      zip: "10001",
-      country: "USA",
-      capacity: 20000,
-      latitude: 40.7505,
-      longitude: -73.9934,
-      description:
-        "The World's Most Famous Arena. Hosting concerts, sports, and entertainment since 1968.",
-    },
-    {
-      name: "Red Rocks Amphitheatre",
-      address: "18300 W Alameda Pkwy",
-      city: "Morrison",
-      state: "CO",
-      zip: "80465",
-      country: "USA",
-      capacity: 9525,
-      latitude: 39.6653,
-      longitude: -105.2056,
-      description:
-        "Iconic natural amphitheater carved out of red rock formations. One of the most beautiful concert venues in the world.",
-    },
     {
       name: "The Fillmore",
       address: "1805 Geary Blvd",
