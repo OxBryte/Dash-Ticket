@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Search, Download, Calendar, MapPin, Ticket } from 'lucide-react'
 import { format } from 'date-fns'
+import { toast } from 'react-hot-toast'
 
 interface Order {
   id: string
@@ -218,7 +219,7 @@ export default function OrdersPage() {
                       </div>
                       
                       <button
-                        onClick={() => alert('Download functionality would be implemented here')}
+                        onClick={() => toast('Download functionality will be implemented here')}
                         className="mt-4 flex items-center text-blue-600 hover:text-blue-700 font-medium"
                       >
                         <Download className="w-4 h-4 mr-2" />
