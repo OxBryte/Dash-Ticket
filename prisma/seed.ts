@@ -5,16 +5,6 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log("Start seeding with real data...")
-
-
-  for (const promo of promoCodes) {
-    await prisma.promoCode.create({
-      data: promo,
-    });
-    console.log(`Created promo code: ${promo.code}`);
-  }
-
-  console.log("Seeding finished successfully!");
 }
 
 main()
