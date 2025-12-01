@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Prisma } from '@prisma/client'
 import { Minus, Plus, ShoppingCart } from 'lucide-react'
 import { useCartStore } from '@/app/store/cartStore'
+import { toast } from 'react-hot-toast'
 
 type TicketType = Prisma.TicketTypeGetPayload<{}>
 
@@ -70,11 +71,11 @@ export default function TicketSelector({ ticketTypes, eventId, eventTitle }: Tic
       // Reset quantities
       setQuantities({})
       
-      // Show success message (you could use a toast library here)
-      alert(`Added ${totalTickets} ticket(s) to cart!`)
+      // Show success message
+      toast.success(`Added ${totalTickets} ticket(s) to cart!`)
     } catch (error) {
       console.error('Error adding to cart:', error)
-      alert('Failed to add tickets to cart')
+      toast.error('Failed to add tickets to cart')
     } finally {
       setIsAdding(false)
     }
