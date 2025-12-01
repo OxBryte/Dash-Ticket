@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useCartStore } from '@/app/store/cartStore'
 import { ShoppingCart, X, Minus, Plus, Clock } from 'lucide-react'
 import Link from 'next/link'
-import { cn } from '@/app/lib/utils'
 
 export default function CartDrawer() {
   const [isOpen, setIsOpen] = useState(false)
