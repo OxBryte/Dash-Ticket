@@ -6,45 +6,7 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Start seeding with real data...");
 
-  // Create Real Organizers
-
-    {
-      name: "The Fillmore",
-      address: "1805 Geary Blvd",
-      city: "San Francisco",
-      state: "CA",
-      zip: "94115",
-      country: "USA",
-      capacity: 1200,
-      latitude: 37.7849,
-      longitude: -122.4324,
-      description:
-        "Historic music venue in the heart of San Francisco. Known for intimate performances and legendary acoustics.",
-    },
-    {
-      name: "Wrigley Field",
-      address: "1060 W Addison St",
-      city: "Chicago",
-      state: "IL",
-      zip: "60613",
-      country: "USA",
-      capacity: 41649,
-      latitude: 41.9484,
-      longitude: -87.6553,
-      description:
-        "Historic baseball stadium and concert venue. Home of the Chicago Cubs since 1914.",
-    },
-    {
-      name: "The Hollywood Bowl",
-      address: "2301 N Highland Ave",
-      city: "Los Angeles",
-      state: "CA",
-      zip: "90068",
-      country: "USA",
-      capacity: 17500,
-      latitude: 34.1123,
-      longitude: -118.3389,
-      description:
+  ription:
         "Iconic outdoor amphitheater in the Hollywood Hills. Hosts world-class concerts and events year-round.",
     },
     {
