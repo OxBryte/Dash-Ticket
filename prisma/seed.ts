@@ -7,38 +7,7 @@ async function main() {
   console.log("Start seeding with real data...");
 
   // Create Real Organizers
-  const organizer1 = await prisma.user.upsert({
-    where: { email: "events@livenation.com" },
-    update: {},
-    create: {
-      email: "events@livenation.com",
-      name: "Live Nation Entertainment",
-      role: "ORGANIZER",
-      password: await bcrypt.hash("SecurePass2025!", 10),
-    },
-  });
-
-  const organizer2 = await prisma.user.upsert({
-    where: { email: "booking@msg.com" },
-    update: {},
-    create: {
-      email: "booking@msg.com",
-      name: "Madison Square Garden",
-      role: "ORGANIZER",
-      password: await bcrypt.hash("MSG2025Events!", 10),
-    },
-  });
-
-  const organizer3 = await prisma.user.upsert({
-    where: { email: "info@techsummit.com" },
-    update: {},
-    create: {
-      email: "info@techsummit.com",
-      name: "Tech Summit Productions",
-      role: "ORGANIZER",
-      password: await bcrypt.hash("TechSummit2025!", 10),
-    },
-  });
+ 
 
   console.log(
     `Created organizers: ${organizer1.name}, ${organizer2.name}, ${organizer3.name}`
