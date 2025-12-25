@@ -17,6 +17,10 @@ interface TicketTypeForm {
 export default function CreateEventPage() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null)
+  const [useImageUrl, setUseImageUrl] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   
   const [formData, setFormData] = useState({
     title: '',
