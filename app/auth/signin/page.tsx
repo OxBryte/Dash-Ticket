@@ -10,7 +10,7 @@ import { toast } from 'react-hot-toast'
 export default function SignInPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/'
+  const callbackUrl = searchParams.get('callbackUrl') || '/events'
   const { refetch } = useAuth()
   
   // Handle registered query param
