@@ -81,7 +81,7 @@ export default function Navbar() {
               <div className="relative" ref={dropdownRef}>
                 <button 
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-[#3a3a3a] rounded-lg transition-all"
+                  className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-[#3a3a3a] rounded-lg transition-all cursor-pointer"
                 >
                   <div className="w-8 h-8 rounded-full bg-[#A5BF13] flex items-center justify-center">
                     <span className="text-sm font-bold text-[#292929]">
