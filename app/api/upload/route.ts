@@ -1,7 +1,12 @@
+import { v2 as cloudinary } from 'cloudinary'
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,36 +38,72 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Convert file to buffer
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    // Create unique filename
-    const timestamp = Date.now()
-    const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
-    const filename = `${timestamp}-${originalName}`
-    
-    // Ensure uploads directory exists
-    const uploadsDir = join(process.cwd(), 'public', 'uploads', 'events')
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
+    // Upload to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'tixhub/events', // Organize uploads in folders
+          resource_type: 'image',
+          transformation: [
+            { width: 1920, height: 1080, crop: 'limit' }, // Limit max dimensions
+            { quality: 'auto' }, // Automatic quality optimization
+            { fetch_format: 'auto' }, // Automatic format optimization
+          ],
+        },
+        (error, result) => {
+          if (error) reject(error)
+          else resolve(result)
+        }
+      )
 
-    // Write file
-    const filepath = join(uploadsDir, filename)
-    await writeFile(filepath, buffer)
-    
-    // Return URL path (relative to public directory)
-    const url = `/uploads/events/${filename}`
-    
+      uploadStream.end(buffer)
+    })
+
+    const result = uploadResult as any
+
     return NextResponse.json({ 
       success: true, 
-      url,
-      filename 
+      imageUrl: result.secure_url,
+      publicId: result.public_id,
+      width: result.width,
+      height: result.height,
+      format: result.format,
     })
   } catch (error) {
-    console.error('Upload error:', error)
+    console.error('Cloudinary upload error:', error)
     return NextResponse.json(
-      { error: 'Failed to upload file' },
+      { error: 'Failed to upload file to Cloudinary' },
+      { status: 500 }
+    )
+  }
+}
+
+// Optional: DELETE endpoint to remove images from Cloudinary
+export async function DELETE(request: NextRequest) {
+  try {
+    const { publicId } = await request.json()
+    
+    if (!publicId) {
+      return NextResponse.json(
+        { error: 'No public ID provided' },
+        { status: 400 }
+      )
+    }
+
+    await cloudinary.uploader.destroy(publicId)
+
+    return NextResponse.json({ 
+      success: true,
+      message: 'Image deleted successfully'
+    })
+  } catch (error) {
+    console.error('Cloudinary delete error:', error)
+    return NextResponse.json(
+      { error: 'Failed to delete image' },
       { status: 500 }
     )
   }
