@@ -34,7 +34,9 @@ export default function CartDrawer() {
   // Timer countdown
   useEffect(() => {
     if (!expiresAt || isExpired()) {
-      setTimeLeft("");
+      setTimeout(() => {
+        setTimeLeft("");
+      }, 100);
       return;
     }
 
@@ -43,7 +45,9 @@ export default function CartDrawer() {
       const remaining = expiresAt - now;
 
       if (remaining <= 0) {
-        setTimeLeft("Expired");
+        setTimeout(() => {
+          setTimeLeft("Expired");
+        }, 100);
         clearCart();
         clearInterval(interval);
       } else {
