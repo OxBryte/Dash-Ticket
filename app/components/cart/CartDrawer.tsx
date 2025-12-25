@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useCartStore } from '@/app/store/cartStore'
-import { ShoppingCart, X, Minus, Plus, Clock } from 'lucide-react'
+import { ShoppingCart, X, Minus, Plus, Clock, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export default function CartDrawer() {
@@ -57,11 +57,11 @@ export default function CartDrawer() {
       {/* Cart Button */}
       <button 
         onClick={() => setIsOpen(true)}
-        className="relative inline-flex items-center justify-center rounded-full border border-gray-200/70 bg-white/80 px-3 py-2 text-gray-800 shadow-sm backdrop-blur-sm hover:bg-white hover:shadow-md dark:border-gray-700/70 dark:bg-gray-900/80 dark:text-gray-100"
+        className="relative inline-flex items-center justify-center rounded-lg border border-[#404040] bg-[#292929] px-3 py-2 text-white hover:border-[#A5BF13] transition-all"
       >
         <ShoppingCart className="h-5 w-5" />
         {mounted && itemCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[11px] font-semibold rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
+          <span className="absolute -top-1 -right-1 bg-[#A5BF13] text-[#292929] text-[11px] font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg shadow-[#A5BF13]/50">
             {itemCount}
           </span>
         )}
@@ -73,39 +73,39 @@ export default function CartDrawer() {
           <div className="absolute inset-0 overflow-hidden">
             {/* Background overlay */}
             <div 
-              className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
               onClick={() => setIsOpen(false)}
             />
             
             {/* Drawer panel */}
             <div className="absolute inset-y-0 right-0 max-w-full flex">
               <div className="w-screen max-w-lg">
-                <div className="h-full flex flex-col bg-slate-950 text-slate-50 shadow-2xl border-l border-slate-800">
+                <div className="h-full flex flex-col bg-[#292929] border-l border-[#404040] shadow-2xl">
                   {/* Header */}
-                  <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-slate-800">
+                  <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-[#404040]">
                     <div>
-                      <h2 className="text-lg font-semibold tracking-tight">
-                        Your tickets
+                      <h2 className="text-xl font-bold text-white tracking-tight">
+                        Your Tickets
                       </h2>
-                      <p className="text-xs text-slate-400">
-                        Tickets are reserved for {timeLeft || 'a limited time'}.
+                      <p className="text-xs text-gray-400 mt-1">
+                        Reserved for {timeLeft || 'a limited time'}
                       </p>
                     </div>
                     <button
                       onClick={() => setIsOpen(false)}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#404040] text-gray-400 hover:bg-[#3a3a3a] hover:text-white transition-all"
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-5 w-5" />
                     </button>
                   </div>
 
                   {/* Timer */}
                   {timeLeft && items.length > 0 && (
-                    <div className="px-6 py-2.5 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border-b border-slate-800">
-                      <div className="inline-flex items-center rounded-full bg-slate-900/70 px-3 py-1 text-xs font-medium text-amber-200 ring-1 ring-amber-500/40">
-                        <Clock className="h-3.5 w-3.5 mr-1.5" />
-                        <span className="mr-1">Time remaining:</span>
-                        <span className="font-semibold text-amber-300">{timeLeft}</span>
+                    <div className="px-6 py-3 bg-gradient-to-r from-[#A5BF13]/10 to-transparent border-b border-[#404040]">
+                      <div className="inline-flex items-center rounded-full bg-[#1a1a1a] px-4 py-2 text-xs font-bold text-[#A5BF13] border border-[#A5BF13]/30">
+                        <Clock className="h-4 w-4 mr-2" />
+                        <span className="mr-1.5">Time remaining:</span>
+                        <span className="font-bold">{timeLeft}</span>
                       </div>
                     </div>
                   )}
@@ -113,18 +113,19 @@ export default function CartDrawer() {
                   {/* Cart items */}
                   <div className="flex-1 overflow-y-auto p-6 space-y-4">
                     {items.length === 0 ? (
-                      <div className="flex flex-col items-center justify-center py-16 text-center rounded-2xl border border-dashed border-slate-700 bg-slate-900/60">
-                        <ShoppingCart className="h-10 w-10 text-slate-500 mb-3" />
-                        <p className="text-sm text-slate-300 font-medium">Your cart is empty</p>
-                        <p className="text-xs text-slate-500 mt-1">
-                          Browse events and add tickets to get started.
+                      <div className="flex flex-col items-center justify-center py-20 text-center rounded-2xl border border-dashed border-[#404040] bg-[#1a1a1a]">
+                        <ShoppingCart className="h-16 w-16 text-gray-600 mb-4" />
+                        <p className="text-base text-white font-medium mb-1">Your cart is empty</p>
+                        <p className="text-sm text-gray-400 mb-6">
+                          Browse events and add tickets to get started
                         </p>
                         <Link
                           href="/events"
                           onClick={() => setIsOpen(false)}
-                          className="mt-4 inline-flex items-center rounded-full bg-blue-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-blue-500"
+                          className="inline-flex items-center gap-2 rounded-xl bg-[#A5BF13] hover:bg-[#8a9f10] px-6 py-3 text-sm font-bold text-[#292929] transition-all"
                         >
-                          Find events
+                          Find Events
+                          <ArrowRight className="w-4 h-4" />
                         </Link>
                       </div>
                     ) : (
@@ -132,50 +133,50 @@ export default function CartDrawer() {
                         {items.map((item) => (
                           <div
                             key={item.ticketTypeId}
-                            className="rounded-xl border border-slate-800 bg-slate-900/70 p-4 shadow-sm"
+                            className="rounded-xl border border-[#404040] bg-[#1a1a1a] p-5 hover:border-[#A5BF13]/50 transition-all"
                           >
-                            <div className="flex justify-between items-start mb-2">
+                            <div className="flex justify-between items-start mb-3">
                               <div className="flex-1">
-                                <h3 className="font-semibold text-slate-50">
+                                <h3 className="font-bold text-white">
                                   {item.ticketTypeName}
                                 </h3>
-                                <p className="text-xs text-slate-400 mt-0.5">
+                                <p className="text-xs text-gray-400 mt-1">
                                   {item.eventTitle}
                                 </p>
                               </div>
                               <button
                                 onClick={() => removeItem(item.ticketTypeId)}
-                                className="text-slate-500 hover:text-red-500 hover:bg-slate-800 rounded-full p-1"
+                                className="text-gray-500 hover:text-red-400 hover:bg-[#292929] rounded-lg p-1.5 transition-all"
                               >
-                                <X className="h-3.5 w-3.5" />
+                                <X className="h-4 w-4" />
                               </button>
                             </div>
                             
                             <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3 bg-slate-800/80 rounded-full px-1 py-1">
+                              <div className="flex items-center gap-3 bg-[#292929] rounded-lg px-2 py-2 border border-[#404040]">
                                 <button
                                   onClick={() => updateQuantity(item.ticketTypeId, item.quantity - 1)}
-                                  className="p-1.5 text-slate-300 hover:text-blue-400"
+                                  className="p-1 text-gray-400 hover:text-[#A5BF13] transition-colors"
                                 >
-                                  <Minus className="w-3.5 h-3.5" />
+                                  <Minus className="w-4 h-4" />
                                 </button>
-                                <span className="w-8 text-center text-sm font-semibold text-slate-50">
+                                <span className="w-8 text-center text-sm font-bold text-white">
                                   {item.quantity}
                                 </span>
                                 <button
                                   onClick={() => updateQuantity(item.ticketTypeId, item.quantity + 1)}
                                   disabled={item.quantity >= item.maxPerOrder}
-                                  className="p-1.5 text-slate-300 hover:text-blue-400 disabled:opacity-30"
+                                  className="p-1 text-gray-400 hover:text-[#A5BF13] disabled:opacity-30 transition-colors"
                                 >
-                                  <Plus className="w-3.5 h-3.5" />
+                                  <Plus className="w-4 h-4" />
                                 </button>
                               </div>
                               
                               <div className="text-right">
-                                <div className="text-xs text-slate-400">
+                                <div className="text-xs text-gray-500">
                                   {formatPrice(item.price)} each
                                 </div>
-                                <div className="font-semibold text-slate-50">
+                                <div className="font-bold text-white mt-0.5">
                                   {formatPrice(item.price * item.quantity)}
                                 </div>
                               </div>
@@ -188,22 +189,23 @@ export default function CartDrawer() {
 
                   {/* Footer */}
                   {items.length > 0 && (
-                    <div className="border-t border-slate-800 px-6 py-4 space-y-4 bg-slate-950/95">
-                      <div className="flex items-center justify-between text-sm text-slate-300">
+                    <div className="border-t border-[#404040] px-6 py-6 space-y-4 bg-[#292929]">
+                      <div className="flex items-center justify-between text-sm text-gray-400">
                         <span>Items</span>
-                        <span>{itemCount}</span>
+                        <span className="text-white font-medium">{itemCount}</span>
                       </div>
-                      <div className="flex items-center justify-between text-base font-semibold">
-                        <span>Total</span>
-                        <span>{formatPrice(total)}</span>
+                      <div className="flex items-center justify-between text-xl font-bold">
+                        <span className="text-white">Total</span>
+                        <span className="text-[#A5BF13]">{formatPrice(total)}</span>
                       </div>
                       
                       <Link
                         href="/checkout"
                         onClick={() => setIsOpen(false)}
-                        className="block w-full rounded-full bg-blue-600 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors"
+                        className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#A5BF13] hover:bg-[#8a9f10] py-3.5 text-center text-sm font-bold text-[#292929] shadow-lg shadow-[#A5BF13]/30 transition-all"
                       >
-                        Proceed to checkout
+                        Proceed to Checkout
+                        <ArrowRight className="w-4 h-4" />
                       </Link>
                       
                       <button
@@ -212,7 +214,7 @@ export default function CartDrawer() {
                             clearCart()
                           }
                         }}
-                        className="block w-full text-center text-xs font-medium text-slate-400 hover:text-red-400"
+                        className="block w-full text-center text-xs font-medium text-gray-500 hover:text-red-400 transition-colors"
                       >
                         Clear cart
                       </button>
@@ -227,4 +229,3 @@ export default function CartDrawer() {
     </>
   )
 }
-
