@@ -84,7 +84,7 @@ export default function CartDrawer() {
       {/* Cart Button */}
       <button
         onClick={handleOpenCart}
-        className="relative inline-flex items-center justify-center rounded-lg border border-[#404040] bg-[#292929] px-3 py-2 text-white hover:border-[#A5BF13] transition-all"
+        className="relative inline-flex items-center justify-center rounded-lg border border-[#404040] bg-[#292929] px-3 py-2 text-white hover:border-[#A5BF13] transition-all cursor-pointer"
         type="button"
       >
         <ShoppingCart className="h-5 w-5" />
