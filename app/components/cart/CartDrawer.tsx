@@ -218,7 +218,7 @@ export default function CartDrawer() {
                                     )
                                   }
                                   disabled={item.quantity >= item.maxPerOrder}
-                                  className="p-1 text-gray-400 hover:text-[#A5BF13] disabled:opacity-30 transition-colors"
+                                  className="p-1 text-gray-400 hover:text-[#A5BF13] disabled:opacity-30 transition-colors cursor-pointer"
                                   type="button"
                                 >
                                   <Plus className="w-4 h-4" />
