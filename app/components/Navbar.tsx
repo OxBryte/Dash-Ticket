@@ -135,7 +135,7 @@ export default function Navbar() {
                           router.refresh()
                           window.location.href = '/'
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-[#3a3a3a] transition-all"
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-[#3a3a3a] transition-all cursor-pointer"
                       >
                         <LogOut className="h-4 w-4" />
                         Sign Out
