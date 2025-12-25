@@ -166,60 +166,6 @@ export default function CreateEventPage() {
     }
   }
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
-    if (!allowedTypes.includes(file.type)) {
-      toast.error('Please upload a valid image file (JPEG, PNG, WebP, or GIF)')
-      return
-    }
-
-    // Validate file size (5MB max)
-    const maxSize = 5 * 1024 * 1024
-    if (file.size > maxSize) {
-      toast.error('Image size must be less than 5MB')
-      return
-    }
-
-    setIsUploading(true)
-
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setUploadedImage(data.url)
-        setFormData({ ...formData, imageUrl: data.url })
-        toast.success('Image uploaded successfully!')
-      } else {
-        throw new Error(data.error || 'Upload failed')
-      }
-    } catch (error) {
-      console.error('Upload error:', error)
-      toast.error('Failed to upload image. Please try again.')
-    } finally {
-      setIsUploading(false)
-    }
-  }
-
-  const handleRemoveImage = () => {
-    setUploadedImage(null)
-    setFormData({ ...formData, imageUrl: '' })
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
