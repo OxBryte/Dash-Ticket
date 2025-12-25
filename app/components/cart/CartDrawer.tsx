@@ -23,7 +23,9 @@ export default function CartDrawer() {
 
   // Prevent hydration mismatch by only rendering cart count after mount
   useEffect(() => {
-    setMounted(true);
+    setTimeout(() => {
+      setMounted(true);
+    }, 100);
   }, []);
 
   const itemCount = getItemCount();
