@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Calendar, MapPin, DollarSign, Ticket, Plus, X } from 'lucide-react'
+import { Calendar, MapPin, DollarSign, Ticket, Plus, X, Sparkles, Clock, Image as ImageIcon } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 interface TicketTypeForm {
@@ -181,65 +181,74 @@ export default function CreateEventPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <h1 className="text-3xl font-bold mb-8">Create New Event</h1>
+    <div className="min-h-screen bg-[#0f0f0f] py-8">
+      <div className="container mx-auto px-4 max-w-5xl">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-3">
+            <Sparkles className="w-8 h-8 text-[#A5BF13]" />
+            <h1 className="text-4xl font-bold text-white">Create New Event</h1>
+          </div>
+          <p className="text-gray-400 text-lg">Fill in the details to create your event and start selling tickets</p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-bold mb-4 flex items-center">
-              <Calendar className="w-5 h-5 mr-2" />
-              Event Details
-            </h2>
+          <div className="bg-[#292929] border border-[#404040] rounded-2xl p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <Calendar className="w-6 h-6 text-[#A5BF13]" />
+              <h2 className="text-2xl font-bold text-white">Event Details</h2>
+            </div>
             
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label className="block text-sm font-medium mb-1">Event Title *</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Event Title *</label>
                 <input
                   type="text"
                   name="title"
                   value={formData.title}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                  className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
+                  placeholder="Taylor Swift: The Eras Tour"
                   required
                   maxLength={200}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Short Description</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Short Description</label>
                 <input
                   type="text"
                   name="shortDescription"
                   value={formData.shortDescription}
                   onChange={handleInputChange}
-                  placeholder="Brief tagline for listings"
-                  className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                  placeholder="Brief tagline for listings (optional)"
+                  className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                   maxLength={500}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Full Description *</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Full Description *</label>
                 <textarea
                   name="description"
                   value={formData.description}
                   onChange={handleInputChange}
                   rows={5}
-                  className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                  placeholder="Describe your event in detail..."
+                  className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors resize-none"
                   required
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Category *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Category *</label>
                   <select
                     name="category"
                     value={formData.category}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white focus:outline-none focus:border-[#A5BF13] transition-colors"
                   >
                     <option value="CONCERT">Concert</option>
                     <option value="SPORTS">Sports</option>
@@ -252,12 +261,12 @@ export default function CreateEventPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Age Restriction</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Age Restriction</label>
                   <select
                     name="ageRestriction"
                     value={formData.ageRestriction}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white focus:outline-none focus:border-[#A5BF13] transition-colors"
                   >
                     <option value="ALL_AGES">All Ages</option>
                     <option value="18+">18+</option>
@@ -266,80 +275,100 @@ export default function CreateEventPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Event Status</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Event Status</label>
                   <select
                     name="status"
                     value={formData.status}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white focus:outline-none focus:border-[#A5BF13] transition-colors"
                   >
                     <option value="ON_SALE">On Sale (Published)</option>
                     <option value="DRAFT">Draft (Not Published)</option>
                   </select>
-                  <p className="mt-1 text-xs text-gray-500">
-                    {formData.status === 'DRAFT' 
-                      ? 'Event will be saved but not visible to customers'
-                      : 'Event will be immediately visible in the events list'}
-                  </p>
                 </div>
               </div>
 
+              {formData.status && (
+                <div className={`p-4 rounded-xl border ${
+                  formData.status === 'DRAFT' 
+                    ? 'bg-yellow-500/10 border-yellow-500/30' 
+                    : 'bg-[#A5BF13]/10 border-[#A5BF13]/30'
+                }`}>
+                  <p className={`text-sm font-medium ${
+                    formData.status === 'DRAFT' ? 'text-yellow-400' : 'text-[#A5BF13]'
+                  }`}>
+                    {formData.status === 'DRAFT' 
+                      ? '📝 Event will be saved but not visible to customers'
+                      : '✅ Event will be immediately visible in the events list'}
+                  </p>
+                </div>
+              )}
+
               <div>
-                <label className="block text-sm font-medium mb-1">Event Image URL</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                  <ImageIcon className="w-4 h-4" />
+                  Event Image URL
+                </label>
                 <input
                   type="url"
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleInputChange}
-                    placeholder="https://your-image-url.com/image.jpg"
-                  className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                  placeholder="https://your-image-url.com/image.jpg"
+                  className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Start Date *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    Start Date *
+                  </label>
                   <input
                     type="date"
                     name="startDate"
                     value={formData.startDate}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white focus:outline-none focus:border-[#A5BF13] transition-colors"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Start Time *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    Start Time *
+                  </label>
                   <input
                     type="time"
                     name="startTime"
                     value={formData.startTime}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white focus:outline-none focus:border-[#A5BF13] transition-colors"
                     required
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">End Date</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">End Date (Optional)</label>
                   <input
                     type="date"
                     name="endDate"
                     value={formData.endDate}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white focus:outline-none focus:border-[#A5BF13] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">End Time</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">End Time (Optional)</label>
                   <input
                     type="time"
                     name="endTime"
                     value={formData.endTime}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white focus:outline-none focus:border-[#A5BF13] transition-colors"
                   />
                 </div>
               </div>
@@ -347,83 +376,88 @@ export default function CreateEventPage() {
           </div>
 
           {/* Venue Information */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-bold mb-4 flex items-center">
-              <MapPin className="w-5 h-5 mr-2" />
-              Venue Information
-            </h2>
+          <div className="bg-[#292929] border border-[#404040] rounded-2xl p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <MapPin className="w-6 h-6 text-[#A5BF13]" />
+              <h2 className="text-2xl font-bold text-white">Venue Information</h2>
+            </div>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label className="block text-sm font-medium mb-1">Venue Name *</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Venue Name *</label>
                 <input
                   type="text"
                   name="venueName"
                   value={formData.venueName}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                  placeholder="Madison Square Garden"
+                  className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Address *</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Address *</label>
                 <input
                   type="text"
                   name="venueAddress"
                   value={formData.venueAddress}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                  placeholder="123 Main Street"
+                  className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                   required
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">City *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">City *</label>
                   <input
                     type="text"
                     name="venueCity"
                     value={formData.venueCity}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    placeholder="New York"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">State *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">State *</label>
                   <input
                     type="text"
                     name="venueState"
                     value={formData.venueState}
                     onChange={handleInputChange}
-                    placeholder="State"
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    placeholder="NY"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">ZIP *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">ZIP *</label>
                   <input
                     type="text"
                     name="venueZip"
                     value={formData.venueZip}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                    placeholder="10001"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Venue Capacity *</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Venue Capacity *</label>
                 <input
                   type="number"
                   name="venueCapacity"
                   value={formData.venueCapacity}
                   onChange={handleInputChange}
                   min="1"
-                  className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                  placeholder="5000"
+                  className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                   required
                 />
               </div>
@@ -431,65 +465,65 @@ export default function CreateEventPage() {
           </div>
 
           {/* Ticket Types */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold flex items-center">
-                <Ticket className="w-5 h-5 mr-2" />
-                Ticket Types
-              </h2>
+          <div className="bg-[#292929] border border-[#404040] rounded-2xl p-8">
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex items-center gap-3">
+                <Ticket className="w-6 h-6 text-[#A5BF13]" />
+                <h2 className="text-2xl font-bold text-white">Ticket Types</h2>
+              </div>
               <button
                 type="button"
                 onClick={addTicketType}
-                className="flex items-center text-blue-600 hover:text-blue-700 font-medium"
+                className="flex items-center gap-2 px-4 py-2 bg-[#A5BF13] hover:bg-[#8a9f10] text-[#292929] rounded-lg font-bold transition-all"
               >
-                <Plus className="w-4 h-4 mr-1" />
+                <Plus className="w-4 h-4" />
                 Add Ticket Type
               </button>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
               {ticketTypes.map((ticket, index) => (
-                <div key={ticket.id} className="border dark:border-gray-700 rounded-lg p-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-semibold">Ticket Type #{index + 1}</h3>
+                <div key={ticket.id} className="bg-[#1a1a1a] border border-[#404040] rounded-xl p-6 hover:border-[#A5BF13]/50 transition-all">
+                  <div className="flex justify-between items-center mb-5">
+                    <h3 className="font-bold text-white text-lg">Ticket Type #{index + 1}</h3>
                     {ticketTypes.length > 1 && (
                       <button
                         type="button"
                         onClick={() => removeTicketType(ticket.id)}
-                        className="text-red-600 hover:text-red-700"
+                        className="text-red-400 hover:text-red-300 hover:bg-[#292929] p-2 rounded-lg transition-all"
                       >
                         <X className="w-5 h-5" />
                       </button>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="col-span-2">
-                      <label className="block text-sm font-medium mb-1">Ticket Name *</label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Ticket Name *</label>
                       <input
                         type="text"
                         value={ticket.name}
                         onChange={(e) => handleTicketTypeChange(ticket.id, 'name', e.target.value)}
-                        placeholder="Ticket type name"
-                        className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                        placeholder="VIP, General Admission, Early Bird, etc."
+                        className="w-full px-4 py-3 bg-[#292929] border border-[#404040] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                         required
                       />
                     </div>
 
-                    <div className="col-span-2">
-                      <label className="block text-sm font-medium mb-1">Description</label>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Description (Optional)</label>
                       <input
                         type="text"
                         value={ticket.description}
                         onChange={(e) => handleTicketTypeChange(ticket.id, 'description', e.target.value)}
-                        placeholder="Optional description"
-                        className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                        placeholder="What's included in this ticket?"
+                        className="w-full px-4 py-3 bg-[#292929] border border-[#404040] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-1 flex items-center">
-                        <DollarSign className="w-4 h-4 mr-1" />
+                      <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                        <DollarSign className="w-4 h-4 text-[#A5BF13]" />
                         Price (USD) *
                       </label>
                       <input
@@ -499,33 +533,34 @@ export default function CreateEventPage() {
                         min="0"
                         step="0.01"
                         placeholder="50.00"
-                        className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                        className="w-full px-4 py-3 bg-[#292929] border border-[#404040] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-1">Quantity *</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Total Quantity *</label>
                       <input
                         type="number"
                         value={ticket.quantityTotal}
                         onChange={(e) => handleTicketTypeChange(ticket.id, 'quantityTotal', e.target.value)}
                         min="1"
-                        placeholder="Quantity"
-                        className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                        placeholder="100"
+                        className="w-full px-4 py-3 bg-[#292929] border border-[#404040] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-1">Max Per Order</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Max Per Order</label>
                       <input
                         type="number"
                         value={ticket.maxPerOrder}
                         onChange={(e) => handleTicketTypeChange(ticket.id, 'maxPerOrder', e.target.value)}
                         min="1"
                         max="50"
-                        className="w-full px-3 py-2 border dark:border-gray-700 rounded-md bg-white dark:bg-gray-900"
+                        placeholder="10"
+                        className="w-full px-4 py-3 bg-[#292929] border border-[#404040] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
                       />
                     </div>
                   </div>
@@ -535,20 +570,33 @@ export default function CreateEventPage() {
           </div>
 
           {/* Submit */}
-          <div className="flex justify-end gap-4">
+          <div className="flex justify-end gap-4 pt-4">
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-6 py-3 border dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
+              className="px-8 py-3 border border-[#404040] text-white rounded-xl font-medium hover:bg-[#3a3a3a] transition-all"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium disabled:opacity-50"
+              className="flex items-center gap-2 bg-[#A5BF13] hover:bg-[#8a9f10] text-[#292929] px-8 py-3 rounded-xl font-bold disabled:opacity-50 transition-all shadow-lg shadow-[#A5BF13]/30"
             >
-              {isSubmitting ? 'Creating...' : 'Create Event'}
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Creating Event...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-5 h-5" />
+                  Create Event
+                </>
+              )}
             </button>
           </div>
         </form>
@@ -556,4 +604,3 @@ export default function CreateEventPage() {
     </div>
   )
 }
-
