@@ -69,7 +69,7 @@ export default function CartDrawer() {
 
       {/* Drawer Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] overflow-hidden">
+        <div className="fixed inset-0 z-[10000] overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             {/* Background overlay */}
             <div 
