@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Prisma } from '@prisma/client'
-import { Minus, Plus, ShoppingCart } from 'lucide-react'
+import { Minus, Plus, ShoppingCart, Ticket } from 'lucide-react'
 import { useCartStore } from '@/app/store/cartStore'
 import { toast } from 'react-hot-toast'
 
@@ -82,34 +82,37 @@ export default function TicketSelector({ ticketTypes, eventId, eventTitle }: Tic
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg sticky top-24">
-      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Select Tickets</h3>
+    <div className="bg-[#292929] border border-[#404040] p-6 rounded-2xl shadow-xl sticky top-24">
+      <div className="flex items-center gap-2 mb-6">
+        <Ticket className="w-6 h-6 text-[#A5BF13]" />
+        <h3 className="text-xl font-bold text-white">Select Tickets</h3>
+      </div>
       
       <div className="space-y-4 mb-6">
         {ticketTypes.map((ticket) => (
-          <div key={ticket.id} className="border-b border-gray-100 dark:border-gray-700 last:border-0 pb-4 last:pb-0">
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white">{ticket.name}</h4>
-                <div className="text-blue-600 dark:text-blue-400 font-bold">
+          <div key={ticket.id} className="bg-[#1a1a1a] border border-[#404040] rounded-xl p-4 hover:border-[#A5BF13]/50 transition-all">
+            <div className="flex justify-between items-start mb-3">
+              <div className="flex-1">
+                <h4 className="font-bold text-white mb-1">{ticket.name}</h4>
+                <div className="text-[#A5BF13] font-bold text-lg">
                   {formatPrice(ticket.price)}
                 </div>
               </div>
-              <div className="flex items-center space-x-3 bg-gray-50 dark:bg-gray-900 rounded-lg p-1">
+              <div className="flex items-center gap-3 bg-[#292929] rounded-lg px-2 py-2 border border-[#404040]">
                 <button 
                   onClick={() => handleQuantityChange(ticket.id, -1)}
                   disabled={!quantities[ticket.id]}
-                  className="p-1 text-gray-500 hover:text-blue-600 disabled:opacity-30 transition-colors"
+                  className="p-1 text-gray-400 hover:text-[#A5BF13] disabled:opacity-30 transition-colors"
                   aria-label="Decrease quantity"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="w-6 text-center font-medium text-gray-900 dark:text-white">
+                <span className="w-8 text-center font-bold text-white">
                   {quantities[ticket.id] || 0}
                 </span>
                 <button 
                   onClick={() => handleQuantityChange(ticket.id, 1)}
-                  className="p-1 text-gray-500 hover:text-blue-600 transition-colors"
+                  className="p-1 text-gray-400 hover:text-[#A5BF13] transition-colors"
                   aria-label="Increase quantity"
                 >
                   <Plus className="w-4 h-4" />
@@ -117,35 +120,35 @@ export default function TicketSelector({ ticketTypes, eventId, eventTitle }: Tic
               </div>
             </div>
             {ticket.description && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">{ticket.description}</p>
+              <p className="text-sm text-gray-400 leading-relaxed">{ticket.description}</p>
             )}
           </div>
         ))}
       </div>
 
-      <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-        <div className="flex justify-between items-center mb-4">
-            <span className="text-gray-600 dark:text-gray-400">Total</span>
-            <span className="text-2xl font-bold text-gray-900 dark:text-white">{formatPrice(totalPrice)}</span>
+      <div className="border-t border-[#404040] pt-4 space-y-4">
+        <div className="flex justify-between items-center">
+          <span className="text-gray-400">Total</span>
+          <span className="text-2xl font-bold text-[#A5BF13]">{formatPrice(totalPrice)}</span>
         </div>
         
         <button
           onClick={handleAddToCart}
           disabled={totalTickets === 0 || isAdding}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-[#A5BF13] hover:bg-[#8a9f10] text-[#292929] font-bold py-3.5 px-4 rounded-xl transition-all flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#A5BF13]/30"
         >
           {isAdding ? (
             <span className="flex items-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Processing...
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Processing...
             </span>
           ) : (
             <>
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Add {totalTickets > 0 ? `${totalTickets} Tickets` : 'to Cart'}
+              <ShoppingCart className="w-5 h-5 mr-2" />
+              Add {totalTickets > 0 ? `${totalTickets} Ticket${totalTickets > 1 ? 's' : ''}` : 'to Cart'}
             </>
           )}
         </button>
@@ -153,4 +156,3 @@ export default function TicketSelector({ ticketTypes, eventId, eventTitle }: Tic
     </div>
   )
 }
-
