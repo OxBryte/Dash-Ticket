@@ -383,19 +383,107 @@ export default function CreateEventPage() {
                 </div>
               )}
 
+              {/* Image Upload Section */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
-                  <ImageIcon className="w-4 h-4" />
-                  Event Image URL
+                <label className="block text-sm font-medium text-gray-300 mb-3 flex items-center gap-2">
+                  <ImageIcon className="w-5 h-5 text-[#A5BF13]" />
+                  Event Image
                 </label>
-                <input
-                  type="url"
-                  name="imageUrl"
-                  value={formData.imageUrl}
-                  onChange={handleInputChange}
-                  placeholder="https://your-image-url.com/image.jpg"
-                  className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
-                />
+
+                {/* Toggle between upload and URL */}
+                <div className="flex gap-2 mb-4">
+                  <button
+                    type="button"
+                    onClick={() => setUseImageUrl(false)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      !useImageUrl
+                        ? 'bg-[#A5BF13] text-[#292929]'
+                        : 'bg-[#1a1a1a] text-gray-400 hover:text-white border border-[#404040]'
+                    }`}
+                  >
+                    <Upload className="w-4 h-4 inline mr-2" />
+                    Upload Image
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setUseImageUrl(true)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      useImageUrl
+                        ? 'bg-[#A5BF13] text-[#292929]'
+                        : 'bg-[#1a1a1a] text-gray-400 hover:text-white border border-[#404040]'
+                    }`}
+                  >
+                    <ImageIcon className="w-4 h-4 inline mr-2" />
+                    Use Image URL
+                  </button>
+                </div>
+
+                {!useImageUrl ? (
+                  /* Upload Area */
+                  <div>
+                    {!uploadedImage ? (
+                      <div
+                        onDragOver={handleDragOver}
+                        onDrop={handleDrop}
+                        onClick={() => fileInputRef.current?.click()}
+                        className="border-2 border-dashed border-[#404040] rounded-xl p-12 text-center cursor-pointer hover:border-[#A5BF13] transition-all bg-[#1a1a1a] hover:bg-[#1a1a1a]/50"
+                      >
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileSelect}
+                          className="hidden"
+                        />
+                        {isUploading ? (
+                          <div className="flex flex-col items-center">
+                            <svg className="animate-spin h-12 w-12 text-[#A5BF13] mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <p className="text-white font-medium">Uploading...</p>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center">
+                            <Upload className="w-12 h-12 text-gray-500 mb-4" />
+                            <p className="text-white font-medium mb-2">
+                              Click to upload or drag and drop
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              PNG, JPG, GIF, WebP up to 5MB
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      /* Preview uploaded image */
+                      <div className="relative rounded-xl overflow-hidden border border-[#404040]">
+                        <img
+                          src={uploadedImage}
+                          alt="Event preview"
+                          className="w-full h-64 object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={clearUploadedImage}
+                          className="absolute top-3 right-3 p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all shadow-lg"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  /* URL Input */
+                  <input
+                    type="url"
+                    name="imageUrl"
+                    value={formData.imageUrl}
+                    onChange={handleInputChange}
+                    placeholder="https://your-image-url.com/image.jpg"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
+                  />
+                )}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
