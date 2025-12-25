@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Calendar, MapPin, DollarSign, Ticket, Plus, X, Sparkles, Clock, Image as ImageIcon, Upload, Trash2 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
+import { useAuth } from '@/app/lib/auth-context'
 
 interface TicketTypeForm {
   id: string
