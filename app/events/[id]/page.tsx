@@ -29,7 +29,7 @@ export default async function EventPage({ params }: EventPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#ffffff] py-8">
+    <div className="min-h-screen bg-[#0f0f0f] py-8">
       <div className="container mx-auto px-4">
         {/* Back Button */}
         <Link 
