@@ -5,7 +5,7 @@ import EventCard from '@/app/components/events/EventCard'
 
 export default async function Home() {
   // Fetch 6 featured events
-  const featuredEvents = await prisma.event.findMany({
+  const featuredEvents = await prisma.event?.findMany({
     where: { status: 'ON_SALE' },
     take: 6,
     orderBy: { startDate: 'asc' },
