@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Calendar, Search, User, LogOut } from 'lucide-react'
+import { Ticket, Search, User, LogOut, LayoutDashboard, ShoppingBag, Plus } from 'lucide-react'
 import CartDrawer from './cart/CartDrawer'
 import { useAuth } from '@/app/lib/auth-context'
 import { useRouter } from 'next/navigation'
@@ -29,87 +29,105 @@ export default function Navbar() {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isDropdownOpen])
+
   return (
-    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <nav className="sticky top-0 z-50 bg-[#292929] border-b border-[#404040] backdrop-blur-lg bg-opacity-95">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center space-x-2 text-xl font-bold text-blue-600 dark:text-blue-400">
-              <Calendar className="h-8 w-8" />
-              <span>TicketMaster</span>
-            </Link>
-          </div>
-
-          {/* Search (Hidden on mobile for now) */}
-          <div className="hidden md:flex flex-1 max-w-lg mx-8">
-            <div className="relative w-full">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md leading-5 bg-gray-50 dark:bg-gray-800 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Search events, venues, or artists..."
-              />
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#A5BF13] blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
+              <Ticket className="h-8 w-8 text-[#A5BF13] relative z-10" strokeWidth={2.5} />
             </div>
-          </div>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold text-white tracking-tight">TixHub</span>
+              <span className="text-[10px] text-[#A5BF13] font-medium -mt-1">LIVE EVENTS</span>
+            </div>
+          </Link>
 
-          {/* Right actions */}
-          <div className="flex items-center space-x-4">
+          {/* Center Navigation */}
+          <div className="hidden lg:flex items-center gap-1">
             <Link 
               href="/events" 
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
+              className="px-5 py-2.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-[#3a3a3a] rounded-lg transition-all"
             >
-              Find Events
+              Browse Events
             </Link>
-            
+            {user?.role === 'ORGANIZER' && (
+              <Link 
+                href="/organizer/events/create"
+                className="px-5 py-2.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-[#3a3a3a] rounded-lg transition-all flex items-center gap-2"
+              >
+                <Plus className="h-4 w-4" />
+                Create Event
+              </Link>
+            )}
+          </div>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-3">
+            {/* Search Button - Mobile/Desktop */}
+            <Link
+              href="/events"
+              className="p-2.5 text-gray-400 hover:text-white hover:bg-[#3a3a3a] rounded-lg transition-all"
+            >
+              <Search className="h-5 w-5" />
+            </Link>
+
             <CartDrawer />
-            
+
             {user ? (
-              <div className="flex items-center gap-2">
-                <Link 
-                  href="/organizer/events/create"
-                  className="hidden md:block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
+              <div className="relative" ref={dropdownRef}>
+                <button 
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-[#3a3a3a] rounded-lg transition-all"
                 >
-                  Create Event
-                </Link>
-                <div className="relative" ref={dropdownRef}>
-                  <button 
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 flex items-center gap-2"
-                  >
-                    <User className="h-6 w-6" />
-                    <span className="hidden md:inline text-sm">{user.name}</span>
-                  </button>
-                  {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
-                      <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border-b dark:border-gray-700">
-                        {user.email}
-                      </div>
+                  <div className="w-8 h-8 rounded-full bg-[#A5BF13] flex items-center justify-center">
+                    <span className="text-sm font-bold text-[#292929]">
+                      {user.name?.charAt(0).toUpperCase() || 'U'}
+                    </span>
+                  </div>
+                  <span className="hidden md:block text-sm font-medium">{user.name}</span>
+                </button>
+
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-3 w-64 bg-[#292929] border border-[#404040] rounded-xl shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-4 py-3 border-b border-[#404040]">
+                      <p className="text-sm font-medium text-white">{user.name}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{user.email}</p>
+                    </div>
+
+                    <div className="py-2">
                       <Link 
                         href="/dashboard" 
                         onClick={() => setIsDropdownOpen(false)}
-                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all"
                       >
+                        <LayoutDashboard className="h-4 w-4" />
                         Dashboard
                       </Link>
                       <Link 
                         href="/orders" 
                         onClick={() => setIsDropdownOpen(false)}
-                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all"
                       >
+                        <ShoppingBag className="h-4 w-4" />
                         My Orders
                       </Link>
                       {user.role === 'ORGANIZER' && (
                         <Link 
                           href="/organizer/events/create" 
                           onClick={() => setIsDropdownOpen(false)}
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all lg:hidden"
                         >
+                          <Plus className="h-4 w-4" />
                           Create Event
                         </Link>
                       )}
+                    </div>
+
+                    <div className="border-t border-[#404040] pt-2">
                       <button
                         onClick={async () => {
                           setIsDropdownOpen(false)
@@ -117,19 +135,19 @@ export default function Navbar() {
                           router.refresh()
                           window.location.href = '/'
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-[#3a3a3a] transition-all"
                       >
                         <LogOut className="h-4 w-4" />
                         Sign Out
                       </button>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             ) : (
               <Link 
                 href="/auth/signin"
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium"
+                className="flex items-center gap-2 px-5 py-2.5 bg-[#A5BF13] hover:bg-[#8a9f10] text-[#292929] rounded-lg text-sm font-bold transition-all shadow-lg shadow-[#A5BF13]/20"
               >
                 <User className="h-4 w-4" />
                 Sign In
@@ -141,4 +159,3 @@ export default function Navbar() {
     </nav>
   )
 }
-
