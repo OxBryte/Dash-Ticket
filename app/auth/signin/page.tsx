@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { LogIn, Mail, Lock, Ticket } from 'lucide-react'
+import { LogIn, Mail, Lock, Ticket, Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '@/app/lib/auth-context'
 import { toast } from 'react-hot-toast'
 
