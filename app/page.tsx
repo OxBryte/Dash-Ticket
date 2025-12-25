@@ -40,7 +40,7 @@ export default async function Home() {
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Discover and book tickets for the world's best concerts,
+              Discover and book tickets for the world&apos;s best concerts,
               festivals, sports events, and more. Your next experience is just a
               click away.
             </p>
