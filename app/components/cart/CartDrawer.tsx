@@ -52,12 +52,25 @@ export default function CartDrawer() {
     }).format(cents / 100)
   }
 
+  const handleOpenCart = () => {
+    console.log('Cart button clicked!')
+    setIsOpen(true)
+  }
+
+  const handleCloseCart = () => {
+    console.log('Closing cart')
+    setIsOpen(false)
+  }
+
+  console.log('CartDrawer render - isOpen:', isOpen)
+
   return (
     <>
       {/* Cart Button */}
       <button 
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpenCart}
         className="relative inline-flex items-center justify-center rounded-lg border border-[#404040] bg-[#292929] px-3 py-2 text-white hover:border-[#A5BF13] transition-all"
+        type="button"
       >
         <ShoppingCart className="h-5 w-5" />
         {mounted && itemCount > 0 && (
@@ -69,17 +82,26 @@ export default function CartDrawer() {
 
       {/* Drawer Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-[10000] overflow-hidden">
+        <div 
+          className="fixed inset-0 z-[999999] overflow-hidden"
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+        >
           <div className="absolute inset-0 overflow-hidden">
             {/* Background overlay */}
             <div 
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-              onClick={() => setIsOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-in-out"
+              onClick={handleCloseCart}
+              style={{ opacity: isOpen ? 1 : 0 }}
             />
             
             {/* Drawer panel */}
-            <div className="absolute inset-y-0 right-0 max-w-full flex">
-              <div className="w-screen max-w-lg">
+            <div className="absolute inset-y-0 right-0 max-w-full flex pointer-events-none">
+              <div 
+                className="w-screen max-w-lg pointer-events-auto transform transition-transform duration-300 ease-in-out"
+                style={{ 
+                  transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+                }}
+              >
                 <div className="h-full flex flex-col bg-[#292929] border-l border-[#404040] shadow-2xl">
                   {/* Header */}
                   <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-[#404040]">
@@ -92,8 +114,9 @@ export default function CartDrawer() {
                       </p>
                     </div>
                     <button
-                      onClick={() => setIsOpen(false)}
+                      onClick={handleCloseCart}
                       className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#404040] text-gray-400 hover:bg-[#3a3a3a] hover:text-white transition-all"
+                      type="button"
                     >
                       <X className="h-5 w-5" />
                     </button>
@@ -121,7 +144,7 @@ export default function CartDrawer() {
                         </p>
                         <Link
                           href="/events"
-                          onClick={() => setIsOpen(false)}
+                          onClick={handleCloseCart}
                           className="inline-flex items-center gap-2 rounded-xl bg-[#A5BF13] hover:bg-[#8a9f10] px-6 py-3 text-sm font-bold text-[#292929] transition-all"
                         >
                           Find Events
@@ -147,6 +170,7 @@ export default function CartDrawer() {
                               <button
                                 onClick={() => removeItem(item.ticketTypeId)}
                                 className="text-gray-500 hover:text-red-400 hover:bg-[#292929] rounded-lg p-1.5 transition-all"
+                                type="button"
                               >
                                 <X className="h-4 w-4" />
                               </button>
@@ -157,6 +181,7 @@ export default function CartDrawer() {
                                 <button
                                   onClick={() => updateQuantity(item.ticketTypeId, item.quantity - 1)}
                                   className="p-1 text-gray-400 hover:text-[#A5BF13] transition-colors"
+                                  type="button"
                                 >
                                   <Minus className="w-4 h-4" />
                                 </button>
@@ -167,6 +192,7 @@ export default function CartDrawer() {
                                   onClick={() => updateQuantity(item.ticketTypeId, item.quantity + 1)}
                                   disabled={item.quantity >= item.maxPerOrder}
                                   className="p-1 text-gray-400 hover:text-[#A5BF13] disabled:opacity-30 transition-colors"
+                                  type="button"
                                 >
                                   <Plus className="w-4 h-4" />
                                 </button>
@@ -201,7 +227,7 @@ export default function CartDrawer() {
                       
                       <Link
                         href="/checkout"
-                        onClick={() => setIsOpen(false)}
+                        onClick={handleCloseCart}
                         className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#A5BF13] hover:bg-[#8a9f10] py-3.5 text-center text-sm font-bold text-[#292929] shadow-lg shadow-[#A5BF13]/30 transition-all"
                       >
                         Proceed to Checkout
@@ -215,6 +241,7 @@ export default function CartDrawer() {
                           }
                         }}
                         className="block w-full text-center text-xs font-medium text-gray-500 hover:text-red-400 transition-colors"
+                        type="button"
                       >
                         Clear cart
                       </button>
