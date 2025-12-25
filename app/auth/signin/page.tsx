@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { LogIn } from 'lucide-react'
+import { LogIn, Mail, Lock, Ticket } from 'lucide-react'
 import { useAuth } from '@/app/lib/auth-context'
 import { toast } from 'react-hot-toast'
 
@@ -55,87 +55,117 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <div className="flex justify-center">
-            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
-              <LogIn className="w-8 h-8 text-white" />
+    <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center py-12 px-4">
+      <div className="max-w-md w-full">
+        {/* Logo */}
+        <div className="flex justify-center mb-8">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#A5BF13] blur-md opacity-50" />
+              <Ticket className="h-10 w-10 text-[#A5BF13] relative z-10" strokeWidth={2.5} />
             </div>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-white tracking-tight">TixHub</span>
+              <span className="text-[10px] text-[#A5BF13] font-medium -mt-1">LIVE EVENTS</span>
+            </div>
+          </Link>
+        </div>
+
+        {/* Card */}
+        <div className="bg-[#292929] border border-[#404040] rounded-2xl p-8 shadow-2xl">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-14 h-14 bg-[#A5BF13] bg-opacity-10 rounded-xl mb-4">
+              <LogIn className="w-7 h-7 text-[#A5BF13]" />
+            </div>
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Welcome Back
+            </h2>
+            <p className="text-gray-400">
+              Sign in to access your account
+            </p>
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-            Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            Or{' '}
-            <Link href="/auth/signup" className="font-medium text-blue-600 hover:text-blue-500">
-              create a new account
-            </Link>
-          </p>
+
           {registered === 'true' && (
-            <div className="mt-4 rounded-md bg-green-50 dark:bg-green-900/20 p-4">
-              <p className="text-sm text-green-800 dark:text-green-200">
+            <div className="mb-6 rounded-xl bg-[#A5BF13] bg-opacity-10 border border-[#A5BF13] border-opacity-30 p-4">
+              <p className="text-sm text-[#A5BF13] text-center font-medium">
                 Account created successfully! Please sign in.
               </p>
             </div>
           )}
-        </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm space-y-4">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                 Email address
               </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 placeholder-gray-500 text-gray-900 dark:text-white dark:bg-gray-800 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-              />
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
+                  placeholder="you@example.com"
+                />
+              </div>
             </div>
+
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 placeholder-gray-500 text-gray-900 dark:text-white dark:bg-gray-800 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-              />
+              <div className="relative">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 bg-[#1a1a1a] border border-[#404040] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#A5BF13] transition-colors"
+                  placeholder="Enter your password"
+                />
+              </div>
             </div>
-          </div>
 
-          {error && (
-            <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-4">
-              <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
-            </div>
-          )}
+            {error && (
+              <div className="rounded-xl bg-red-500 bg-opacity-10 border border-red-500 border-opacity-30 p-4">
+                <p className="text-sm text-red-400 text-center">{error}</p>
+              </div>
+            )}
 
-          <div>
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-full flex justify-center items-center gap-2 py-3 px-4 bg-[#A5BF13] hover:bg-[#8a9f10] text-[#292929] rounded-xl text-sm font-bold transition-all shadow-lg shadow-[#A5BF13]/30 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Signing in...' : 'Sign In'}
             </button>
-          </div>
+          </form>
 
-        </form>
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-400">
+              Don't have an account?{' '}
+              <Link href="/auth/signup" className="text-[#A5BF13] hover:text-[#8a9f10] font-medium transition-colors">
+                Create one
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        {/* Back to home */}
+        <div className="mt-6 text-center">
+          <Link href="/" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">
+            ← Back to Home
+          </Link>
+        </div>
       </div>
     </div>
   )
 }
-
