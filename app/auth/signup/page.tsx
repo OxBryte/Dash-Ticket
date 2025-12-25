@@ -16,6 +16,8 @@ export default function SignUpPage() {
     confirmPassword: '',
     role: 'ATTENDEE'
   })
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
