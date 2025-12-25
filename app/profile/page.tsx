@@ -112,9 +112,7 @@ export default async function ProfilePage() {
                   <div className="flex-1">
                     <p className="text-sm text-gray-400 mb-1">Member Since</p>
                     <p className="text-white font-medium">
-                      {user.createdAt
-                        ? moment(user.createdAt).format("MMMM D, YYYY")
-                        : "N/A"}
+                      {moment(user.createdAt).format("MMMM D, YYYY")}
                     </p>
                   </div>
                 </div>
