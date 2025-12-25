@@ -87,9 +87,6 @@ export async function POST(request: NextRequest) {
       })
 
       return newEvent
-    }, {
-      maxWait: 10000, // 10 seconds
-      timeout: 20000, // 20 seconds
     })
 
     return NextResponse.json(event, { status: 201 })
