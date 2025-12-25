@@ -202,7 +202,7 @@ export default function CartDrawer() {
                                       item.quantity - 1
                                     )
                                   }
-                                  className="p-1 text-gray-400 hover:text-[#A5BF13] transition-colors"
+                                  className="p-1 text-gray-400 hover:text-[#A5BF13] transition-colors cursor-pointer"
                                   type="button"
                                 >
                                   <Minus className="w-4 h-4" />
