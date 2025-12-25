@@ -130,7 +130,7 @@ export default function CartDrawer() {
                     </div>
                     <button
                       onClick={handleCloseCart}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#404040] text-gray-400 hover:bg-[#3a3a3a] hover:text-white transition-all"
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#404040] text-gray-400 hover:bg-[#3a3a3a] hover:text-white transition-all cursor-pointer"
                       type="button"
                     >
                       <X className="h-5 w-5" />
