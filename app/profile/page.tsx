@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import { getCurrentUser } from '@/app/lib/auth'
 import Link from 'next/link'
 import { ArrowLeft, UserCircle, Mail, Calendar, Shield, Edit } from 'lucide-react'
-import { format } from 'date-fns'
+import moment from 'moment'
 
 export default async function ProfilePage() {
   const user = await getCurrentUser()
