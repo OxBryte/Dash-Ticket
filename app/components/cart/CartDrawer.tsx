@@ -1,73 +1,82 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { useCartStore } from '@/app/store/cartStore'
-import { ShoppingCart, X, Minus, Plus, Clock, ArrowRight } from 'lucide-react'
-import Link from 'next/link'
+import { useEffect, useState } from "react";
+import { useCartStore } from "@/app/store/cartStore";
+import { ShoppingCart, X, Minus, Plus, Clock, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function CartDrawer() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [timeLeft, setTimeLeft] = useState<string>('')
-  const [mounted, setMounted] = useState(false)
-  
-  const { items, getTotal, getItemCount, updateQuantity, removeItem, clearCart, expiresAt, isExpired } = useCartStore()
-  
+  const [isOpen, setIsOpen] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<string>("");
+  const [mounted, setMounted] = useState(false);
+
+  const {
+    items,
+    getTotal,
+    getItemCount,
+    updateQuantity,
+    removeItem,
+    clearCart,
+    expiresAt,
+    isExpired,
+  } = useCartStore();
+
   // Prevent hydration mismatch by only rendering cart count after mount
   useEffect(() => {
-    setMounted(true)
-  }, [])
-  
-  const itemCount = getItemCount()
-  const total = getTotal()
+    setMounted(true);
+  }, []);
+
+  const itemCount = getItemCount();
+  const total = getTotal();
 
   // Timer countdown
   useEffect(() => {
     if (!expiresAt || isExpired()) {
-      setTimeLeft('')
-      return
+      setTimeLeft("");
+      return;
     }
 
     const interval = setInterval(() => {
-      const now = Date.now()
-      const remaining = expiresAt - now
-      
-      if (remaining <= 0) {
-        setTimeLeft('Expired')
-        clearCart()
-        clearInterval(interval)
-      } else {
-        const minutes = Math.floor(remaining / 60000)
-        const seconds = Math.floor((remaining % 60000) / 1000)
-        setTimeLeft(`${minutes}:${seconds.toString().padStart(2, '0')}`)
-      }
-    }, 1000)
+      const now = Date.now();
+      const remaining = expiresAt - now;
 
-    return () => clearInterval(interval)
-  }, [expiresAt, isExpired, clearCart])
+      if (remaining <= 0) {
+        setTimeLeft("Expired");
+        clearCart();
+        clearInterval(interval);
+      } else {
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        setTimeLeft(`${minutes}:${seconds.toString().padStart(2, "0")}`);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [expiresAt, isExpired, clearCart]);
 
   const formatPrice = (cents: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(cents / 100)
-  }
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(cents / 100);
+  };
 
   const handleOpenCart = () => {
-    console.log('Cart button clicked!')
-    setIsOpen(true)
-  }
+    console.log("Cart button clicked!");
+    setIsOpen(true);
+  };
 
   const handleCloseCart = () => {
-    console.log('Closing cart')
-    setIsOpen(false)
-  }
+    console.log("Closing cart");
+    setIsOpen(false);
+  };
 
-  console.log('CartDrawer render - isOpen:', isOpen)
+  console.log("CartDrawer render - isOpen:", isOpen);
 
   return (
     <>
       {/* Cart Button */}
-      <button 
+      <button
         onClick={handleOpenCart}
         className="relative inline-flex items-center justify-center rounded-lg border border-[#404040] bg-[#292929] px-3 py-2 text-white hover:border-[#A5BF13] transition-all"
         type="button"
@@ -82,24 +91,24 @@ export default function CartDrawer() {
 
       {/* Drawer Overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-[999999] overflow-hidden"
-          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+          style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}
         >
           <div className="absolute inset-0 overflow-hidden">
             {/* Background overlay */}
-            <div 
+            <div
               className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-in-out"
               onClick={handleCloseCart}
               style={{ opacity: isOpen ? 1 : 0 }}
             />
-            
+
             {/* Drawer panel */}
             <div className="absolute inset-y-0 right-0 max-w-full flex pointer-events-none">
-              <div 
+              <div
                 className="w-screen max-w-lg pointer-events-auto transform transition-transform duration-300 ease-in-out"
-                style={{ 
-                  transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+                style={{
+                  transform: isOpen ? "translateX(0)" : "translateX(100%)",
                 }}
               >
                 <div className="h-full flex flex-col bg-[#292929] border-l border-[#404040] shadow-2xl">
@@ -110,7 +119,7 @@ export default function CartDrawer() {
                         Your Tickets
                       </h2>
                       <p className="text-xs text-gray-400 mt-1">
-                        Reserved for {timeLeft || 'a limited time'}
+                        Reserved for {timeLeft || "a limited time"}
                       </p>
                     </div>
                     <button
@@ -138,7 +147,9 @@ export default function CartDrawer() {
                     {items.length === 0 ? (
                       <div className="flex flex-col items-center justify-center py-20 text-center rounded-2xl border border-dashed border-[#404040] bg-[#1a1a1a]">
                         <ShoppingCart className="h-16 w-16 text-gray-600 mb-4" />
-                        <p className="text-base text-white font-medium mb-1">Your cart is empty</p>
+                        <p className="text-base text-white font-medium mb-1">
+                          Your cart is empty
+                        </p>
                         <p className="text-sm text-gray-400 mb-6">
                           Browse events and add tickets to get started
                         </p>
@@ -175,11 +186,16 @@ export default function CartDrawer() {
                                 <X className="h-4 w-4" />
                               </button>
                             </div>
-                            
+
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-3 bg-[#292929] rounded-lg px-2 py-2 border border-[#404040]">
                                 <button
-                                  onClick={() => updateQuantity(item.ticketTypeId, item.quantity - 1)}
+                                  onClick={() =>
+                                    updateQuantity(
+                                      item.ticketTypeId,
+                                      item.quantity - 1
+                                    )
+                                  }
                                   className="p-1 text-gray-400 hover:text-[#A5BF13] transition-colors"
                                   type="button"
                                 >
@@ -189,7 +205,12 @@ export default function CartDrawer() {
                                   {item.quantity}
                                 </span>
                                 <button
-                                  onClick={() => updateQuantity(item.ticketTypeId, item.quantity + 1)}
+                                  onClick={() =>
+                                    updateQuantity(
+                                      item.ticketTypeId,
+                                      item.quantity + 1
+                                    )
+                                  }
                                   disabled={item.quantity >= item.maxPerOrder}
                                   className="p-1 text-gray-400 hover:text-[#A5BF13] disabled:opacity-30 transition-colors"
                                   type="button"
@@ -197,7 +218,7 @@ export default function CartDrawer() {
                                   <Plus className="w-4 h-4" />
                                 </button>
                               </div>
-                              
+
                               <div className="text-right">
                                 <div className="text-xs text-gray-500">
                                   {formatPrice(item.price)} each
@@ -218,13 +239,17 @@ export default function CartDrawer() {
                     <div className="border-t border-[#404040] px-6 py-6 space-y-4 bg-[#292929]">
                       <div className="flex items-center justify-between text-sm text-gray-400">
                         <span>Items</span>
-                        <span className="text-white font-medium">{itemCount}</span>
+                        <span className="text-white font-medium">
+                          {itemCount}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between text-xl font-bold">
                         <span className="text-white">Total</span>
-                        <span className="text-[#A5BF13]">{formatPrice(total)}</span>
+                        <span className="text-[#A5BF13]">
+                          {formatPrice(total)}
+                        </span>
                       </div>
-                      
+
                       <Link
                         href="/checkout"
                         onClick={handleCloseCart}
@@ -233,11 +258,15 @@ export default function CartDrawer() {
                         Proceed to Checkout
                         <ArrowRight className="w-4 h-4" />
                       </Link>
-                      
+
                       <button
                         onClick={() => {
-                          if (window.confirm('Are you sure you want to clear your cart?')) {
-                            clearCart()
+                          if (
+                            window.confirm(
+                              "Are you sure you want to clear your cart?"
+                            )
+                          ) {
+                            clearCart();
                           }
                         }}
                         className="block w-full text-center text-xs font-medium text-gray-500 hover:text-red-400 transition-colors"
@@ -254,5 +283,5 @@ export default function CartDrawer() {
         </div>
       )}
     </>
-  )
+  );
 }
