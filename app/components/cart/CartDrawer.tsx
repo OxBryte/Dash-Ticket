@@ -186,7 +186,7 @@ export default function CartDrawer() {
                               </div>
                               <button
                                 onClick={() => removeItem(item.ticketTypeId)}
-                                className="text-gray-500 hover:text-red-400 hover:bg-[#292929] rounded-lg p-1.5 transition-all"
+                                className="text-gray-500 hover:text-red-400 hover:bg-[#292929] rounded-lg p-1.5 transition-all cursor-pointer"
                                 type="button"
                               >
                                 <X className="h-4 w-4" />
