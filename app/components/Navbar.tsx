@@ -102,24 +102,48 @@ export default function Navbar() {
                       <Link 
                         href="/dashboard" 
                         onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all cursor-pointer"
                       >
                         <LayoutDashboard className="h-4 w-4" />
                         Dashboard
                       </Link>
                       <Link 
+                        href="/profile" 
+                        onClick={() => setIsDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all cursor-pointer"
+                      >
+                        <UserCircle className="h-4 w-4" />
+                        Profile
+                      </Link>
+                      <Link 
                         href="/orders" 
                         onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all cursor-pointer"
                       >
                         <ShoppingBag className="h-4 w-4" />
                         My Orders
+                      </Link>
+                      <Link 
+                        href="/wallet" 
+                        onClick={() => setIsDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all cursor-pointer"
+                      >
+                        <Wallet className="h-4 w-4" />
+                        Wallet
+                      </Link>
+                      <Link 
+                        href="/settings" 
+                        onClick={() => setIsDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all cursor-pointer"
+                      >
+                        <Settings className="h-4 w-4" />
+                        Settings
                       </Link>
                       {user.role === 'ORGANIZER' && (
                         <Link 
                           href="/organizer/events/create" 
                           onClick={() => setIsDropdownOpen(false)}
-                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all lg:hidden"
+                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-[#3a3a3a] transition-all cursor-pointer lg:hidden"
                         >
                           <Plus className="h-4 w-4" />
                           Create Event
