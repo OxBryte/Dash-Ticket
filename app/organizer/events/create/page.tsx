@@ -102,7 +102,7 @@ export default function CreateEventPage() {
       if (response.ok) {
         setUploadedImage(data.imageUrl)
         setFormData(prev => ({ ...prev, imageUrl: data.imageUrl }))
-        toast.success('Image uploaded successfully!')
+        toast.success('Image uploaded to Cloudinary successfully!')
       } else {
         throw new Error(data.error || 'Upload failed')
       }
