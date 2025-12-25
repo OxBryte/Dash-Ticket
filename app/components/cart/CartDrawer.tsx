@@ -275,7 +275,7 @@ export default function CartDrawer() {
                             clearCart();
                           }
                         }}
-                        className="block w-full text-center text-xs font-medium text-gray-500 hover:text-red-400 transition-colors"
+                        className="block w-full text-center text-xs font-medium text-gray-500 hover:text-red-400 transition-colors cursor-pointer"
                         type="button"
                       >
                         Clear cart
