@@ -33,6 +33,14 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# database files
+*.db
+*.db-journal
+
+# temp scripts
+check-*.js
+fix-*.sh
+
 
 # vercel
 .vercel
