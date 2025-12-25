@@ -1,14 +1,21 @@
-import { redirect } from 'next/navigation'
-import { getCurrentUser } from '@/app/lib/auth'
-import Link from 'next/link'
-import { ArrowLeft, UserCircle, Mail, Calendar, Shield, Edit } from 'lucide-react'
-import moment from 'moment'
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/app/lib/auth";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  UserCircle,
+  Mail,
+  Calendar,
+  Shield,
+  Edit,
+} from "lucide-react";
+import moment from "moment";
 
 export default async function ProfilePage() {
-  const user = await getCurrentUser()
-  
+  const user = await getCurrentUser();
+
   if (!user?.email) {
-    redirect('/auth/signin')
+    redirect("/auth/signin");
   }
 
   return (
@@ -36,7 +43,7 @@ export default async function ProfilePage() {
             <div className="bg-[#292929] border border-[#404040] rounded-2xl p-6 text-center">
               <div className="w-24 h-24 rounded-full bg-[#A5BF13] flex items-center justify-center mx-auto mb-4">
                 <span className="text-4xl font-bold text-[#292929]">
-                  {user.name?.charAt(0).toUpperCase() || 'U'}
+                  {user.name?.charAt(0).toUpperCase() || "U"}
                 </span>
               </div>
               <h2 className="text-xl font-bold text-white mb-1">{user.name}</h2>
@@ -53,7 +60,9 @@ export default async function ProfilePage() {
             {/* Personal Information */}
             <div className="bg-[#292929] border border-[#404040] rounded-2xl p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-white">Personal Information</h3>
+                <h3 className="text-xl font-bold text-white">
+                  Personal Information
+                </h3>
                 <Link
                   href="/profile/edit"
                   className="flex items-center gap-2 px-4 py-2 bg-[#A5BF13] hover:bg-[#8a9f10] text-[#292929] rounded-lg text-sm font-bold transition-all cursor-pointer"
@@ -90,7 +99,9 @@ export default async function ProfilePage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm text-gray-400 mb-1">Account Type</p>
-                    <p className="text-white font-medium capitalize">{user.role}</p>
+                    <p className="text-white font-medium capitalize">
+                      {user.role}
+                    </p>
                   </div>
                 </div>
 
@@ -101,7 +112,9 @@ export default async function ProfilePage() {
                   <div className="flex-1">
                     <p className="text-sm text-gray-400 mb-1">Member Since</p>
                     <p className="text-white font-medium">
-                      {user.createdAt ? moment(user.createdAt).format('MMMM D, YYYY') : 'N/A'}
+                      {user.createdAt
+                        ? moment(user.createdAt).format("MMMM D, YYYY")
+                        : "N/A"}
                     </p>
                   </div>
                 </div>
@@ -117,29 +130,37 @@ export default async function ProfilePage() {
                   className="p-4 bg-[#1a1a1a] border border-[#404040] rounded-xl hover:border-[#A5BF13] transition-all group cursor-pointer"
                 >
                   <p className="text-sm text-gray-400 mb-1">Orders</p>
-                  <p className="text-2xl font-bold text-white group-hover:text-[#A5BF13] transition-colors">View</p>
+                  <p className="text-2xl font-bold text-white group-hover:text-[#A5BF13] transition-colors">
+                    View
+                  </p>
                 </Link>
                 <Link
                   href="/wallet"
                   className="p-4 bg-[#1a1a1a] border border-[#404040] rounded-xl hover:border-[#A5BF13] transition-all group cursor-pointer"
                 >
                   <p className="text-sm text-gray-400 mb-1">Wallet</p>
-                  <p className="text-2xl font-bold text-white group-hover:text-[#A5BF13] transition-colors">Manage</p>
+                  <p className="text-2xl font-bold text-white group-hover:text-[#A5BF13] transition-colors">
+                    Manage
+                  </p>
                 </Link>
                 <Link
                   href="/settings"
                   className="p-4 bg-[#1a1a1a] border border-[#404040] rounded-xl hover:border-[#A5BF13] transition-all group cursor-pointer"
                 >
                   <p className="text-sm text-gray-400 mb-1">Settings</p>
-                  <p className="text-2xl font-bold text-white group-hover:text-[#A5BF13] transition-colors">Configure</p>
+                  <p className="text-2xl font-bold text-white group-hover:text-[#A5BF13] transition-colors">
+                    Configure
+                  </p>
                 </Link>
-                {user.role === 'ORGANIZER' && (
+                {user.role === "ORGANIZER" && (
                   <Link
                     href="/organizer/events/create"
                     className="p-4 bg-[#1a1a1a] border border-[#404040] rounded-xl hover:border-[#A5BF13] transition-all group cursor-pointer"
                   >
                     <p className="text-sm text-gray-400 mb-1">Events</p>
-                    <p className="text-2xl font-bold text-white group-hover:text-[#A5BF13] transition-colors">Create</p>
+                    <p className="text-2xl font-bold text-white group-hover:text-[#A5BF13] transition-colors">
+                      Create
+                    </p>
                   </Link>
                 )}
               </div>
@@ -148,6 +169,5 @@ export default async function ProfilePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
