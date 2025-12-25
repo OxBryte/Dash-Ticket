@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CalendarDays, MapPin } from 'lucide-react'
+import { CalendarDays, MapPin, ArrowRight } from 'lucide-react'
 import { format } from 'date-fns'
 import { Prisma } from '@prisma/client'
 
@@ -28,65 +28,84 @@ export default function EventCard({ event }: EventCardProps) {
     }).format(cents / 100)
   }
 
+  // Category badge colors
+  const getCategoryColor = (category: string) => {
+    const colors: Record<string, string> = {
+      CONCERT: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+      SPORTS: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+      FESTIVAL: 'bg-pink-500/20 text-pink-300 border-pink-500/30',
+      CONFERENCE: 'bg-green-500/20 text-green-300 border-green-500/30',
+      THEATER: 'bg-red-500/20 text-red-300 border-red-500/30',
+      COMEDY: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
+      OTHER: 'bg-gray-500/20 text-gray-300 border-gray-500/30',
+    }
+    return colors[category] || colors.OTHER
+  }
+
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
-      <div className="relative h-48 bg-gray-200 dark:bg-gray-700">
-        {/* Placeholder for Image */}
-        {event.imageUrl ? (
-             // eslint-disable-next-line @next/next/no-img-element
+    <Link href={`/events/${event.id}`} className="group">
+      <div className="bg-[#292929] rounded-2xl overflow-hidden border border-[#404040] hover:border-[#A5BF13] transition-all duration-300 hover:shadow-xl hover:shadow-[#A5BF13]/10 h-full flex flex-col">
+        {/* Image */}
+        <div className="relative h-56 bg-[#1a1a1a] overflow-hidden">
+          {event.imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img 
               src={event.imageUrl} 
               alt={event.title} 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-        ) : (
-            <div className="flex items-center justify-center h-full text-gray-400">
-                <span className="text-4xl">🎫</span>
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <span className="text-6xl opacity-30">🎫</span>
             </div>
-        )}
-        <div className="absolute top-4 right-4 bg-white dark:bg-gray-900 px-3 py-1 rounded-full text-xs font-bold shadow-sm uppercase">
-            {event.category}
+          )}
+          
+          {/* Category Badge */}
+          <div className="absolute top-3 right-3">
+            <div className={`px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border backdrop-blur-md ${getCategoryColor(event.category)}`}>
+              {event.category}
+            </div>
+          </div>
+
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#292929] via-transparent to-transparent opacity-60" />
         </div>
-      </div>
-      
-      <div className="p-5 flex-grow flex flex-col">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
-          <Link href={`/events/${event.id}`} className="hover:text-blue-600 transition-colors">
-            {event.title}
-          </Link>
-        </h3>
         
-        <div className="space-y-2 mb-4 flex-grow">
-            <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm">
-                <CalendarDays className="w-4 h-4 mr-2 flex-shrink-0" />
-                <span>{format(new Date(event.startDate), 'EEE, MMM d, yyyy • h:mm a')}</span>
+        {/* Content */}
+        <div className="p-5 flex-grow flex flex-col">
+          <h3 className="text-lg font-bold text-white mb-3 line-clamp-2 group-hover:text-[#A5BF13] transition-colors">
+            {event.title}
+          </h3>
+          
+          <div className="space-y-2.5 mb-4 flex-grow">
+            <div className="flex items-center text-gray-400 text-sm">
+              <CalendarDays className="w-4 h-4 mr-2.5 flex-shrink-0 text-[#A5BF13]" />
+              <span>{format(new Date(event.startDate), 'EEE, MMM d, yyyy • h:mm a')}</span>
             </div>
             
             {event.venue && (
-                <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm">
-                    <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
-                    <span className="line-clamp-1">{event.venue.name}, {event.venue.city}</span>
-                </div>
+              <div className="flex items-center text-gray-400 text-sm">
+                <MapPin className="w-4 h-4 mr-2.5 flex-shrink-0 text-[#A5BF13]" />
+                <span className="line-clamp-1">{event.venue.name}, {event.venue.city}</span>
+              </div>
             )}
-        </div>
+          </div>
 
-        <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
-            <div className="text-blue-600 dark:text-blue-400 font-bold">
-                {prices.length > 0 ? (
-                    minPrice === maxPrice ? formatPrice(minPrice) : `${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`
-                ) : (
-                    "Check details"
-                )}
+          {/* Footer */}
+          <div className="mt-auto pt-4 border-t border-[#404040] flex items-center justify-between">
+            <div>
+              <p className="text-xs text-gray-500 mb-1">Starting from</p>
+              <p className="text-[#A5BF13] font-bold text-lg">
+                {prices.length > 0 ? formatPrice(minPrice) : "TBA"}
+              </p>
             </div>
-            <Link 
-                href={`/events/${event.id}`}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md transition-colors"
-            >
-                Get Tickets
-            </Link>
+            <div className="flex items-center gap-2 text-white text-sm font-medium group-hover:text-[#A5BF13] transition-colors">
+              Get Tickets
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
-
