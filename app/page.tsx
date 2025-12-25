@@ -93,7 +93,7 @@ export default async function Home() {
           <div className="flex justify-between items-end mb-12">
             <div>
               <h2 className="text-4xl font-bold text-white mb-2">Featured Events</h2>
-              <p className="text-gray-400">Don't miss out on these amazing experiences</p>
+              <p className="text-gray-400">Dont miss out on these amazing experiences</p>
             </div>
             <Link 
               href="/events" 
