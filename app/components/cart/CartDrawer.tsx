@@ -53,7 +53,9 @@ export default function CartDrawer() {
       } else {
         const minutes = Math.floor(remaining / 60000);
         const seconds = Math.floor((remaining % 60000) / 1000);
-        setTimeLeft(`${minutes}:${seconds.toString().padStart(2, "0")}`);
+        setTimeout(() => {
+          setTimeLeft(`${minutes}:${seconds.toString().padStart(2, "0")}`);
+        }, 100);
       }
     }, 1000);
 
