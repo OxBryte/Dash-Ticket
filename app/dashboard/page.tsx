@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import { getCurrentUser } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
 import Link from 'next/link'
-import { Calendar, Ticket, DollarSign, TrendingUp, Package, Clock, CheckCircle, XCircle } from 'lucide-react'
+import { Calendar, Ticket, DollarSign, TrendingUp, Package, Clock, CheckCircle, ArrowRight, Sparkles } from 'lucide-react'
 import { format } from 'date-fns'
 
 export default async function DashboardPage() {
@@ -45,66 +45,69 @@ export default async function DashboardPage() {
   const recentOrders = orders.slice(0, 5)
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div className="min-h-screen bg-[#0f0f0f] py-8">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Welcome back, {user.name || 'User'}!
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <div className="flex items-center gap-3 mb-3">
+            <Sparkles className="w-8 h-8 text-[#A5BF13]" />
+            <h1 className="text-4xl font-bold text-white">
+              Welcome back, {user.name || 'User'}!
+            </h1>
+          </div>
+          <p className="text-gray-400 text-lg">
             Manage your tickets, orders, and events all in one place.
           </p>
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <div className="bg-[#292929] border border-[#404040] rounded-2xl p-6 hover:border-[#A5BF13] transition-all group">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Total Orders</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{totalOrders}</p>
+                <p className="text-sm text-gray-400 mb-2">Total Orders</p>
+                <p className="text-3xl font-bold text-white">{totalOrders}</p>
               </div>
-              <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                <Package className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+              <div className="p-4 bg-[#A5BF13] bg-opacity-10 rounded-xl group-hover:scale-110 transition-transform">
+                <Package className="h-7 w-7 text-[#A5BF13]" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <div className="bg-[#292929] border border-[#404040] rounded-2xl p-6 hover:border-[#A5BF13] transition-all group">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Total Spent</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                <p className="text-sm text-gray-400 mb-2">Total Spent</p>
+                <p className="text-3xl font-bold text-white">
                   ${(totalSpent / 100).toFixed(2)}
                 </p>
               </div>
-              <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                <DollarSign className="h-6 w-6 text-green-600 dark:text-green-400" />
+              <div className="p-4 bg-[#A5BF13] bg-opacity-10 rounded-xl group-hover:scale-110 transition-transform">
+                <DollarSign className="h-7 w-7 text-[#A5BF13]" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <div className="bg-[#292929] border border-[#404040] rounded-2xl p-6 hover:border-[#A5BF13] transition-all group">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Total Tickets</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{totalTickets}</p>
+                <p className="text-sm text-gray-400 mb-2">Total Tickets</p>
+                <p className="text-3xl font-bold text-white">{totalTickets}</p>
               </div>
-              <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                <Ticket className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+              <div className="p-4 bg-[#A5BF13] bg-opacity-10 rounded-xl group-hover:scale-110 transition-transform">
+                <Ticket className="h-7 w-7 text-[#A5BF13]" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <div className="bg-[#292929] border border-[#404040] rounded-2xl p-6 hover:border-[#A5BF13] transition-all group">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Upcoming Events</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{upcomingEvents}</p>
+                <p className="text-sm text-gray-400 mb-2">Upcoming Events</p>
+                <p className="text-3xl font-bold text-white">{upcomingEvents}</p>
               </div>
-              <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-                <Calendar className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+              <div className="p-4 bg-[#A5BF13] bg-opacity-10 rounded-xl group-hover:scale-110 transition-transform">
+                <Calendar className="h-7 w-7 text-[#A5BF13]" />
               </div>
             </div>
           </div>
@@ -114,73 +117,78 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Link 
             href="/events"
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
+            className="bg-[#292929] border border-[#404040] rounded-2xl p-6 hover:border-[#A5BF13] hover:shadow-lg hover:shadow-[#A5BF13]/10 transition-all group"
           >
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                <Calendar className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+              <div className="p-4 bg-[#A5BF13] bg-opacity-10 rounded-xl group-hover:scale-110 transition-transform">
+                <Calendar className="h-6 w-6 text-[#A5BF13]" />
               </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Browse Events</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Discover new events</p>
+              <div className="flex-1">
+                <h3 className="font-bold text-white mb-1 group-hover:text-[#A5BF13] transition-colors">Browse Events</h3>
+                <p className="text-sm text-gray-400">Discover new events</p>
               </div>
+              <ArrowRight className="h-5 w-5 text-gray-500 group-hover:text-[#A5BF13] group-hover:translate-x-1 transition-all" />
             </div>
           </Link>
 
           <Link 
             href="/orders"
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
+            className="bg-[#292929] border border-[#404040] rounded-2xl p-6 hover:border-[#A5BF13] hover:shadow-lg hover:shadow-[#A5BF13]/10 transition-all group"
           >
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                <Ticket className="h-6 w-6 text-green-600 dark:text-green-400" />
+              <div className="p-4 bg-[#A5BF13] bg-opacity-10 rounded-xl group-hover:scale-110 transition-transform">
+                <Ticket className="h-6 w-6 text-[#A5BF13]" />
               </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">View Orders</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Track your purchases</p>
+              <div className="flex-1">
+                <h3 className="font-bold text-white mb-1 group-hover:text-[#A5BF13] transition-colors">View Orders</h3>
+                <p className="text-sm text-gray-400">Track your purchases</p>
               </div>
+              <ArrowRight className="h-5 w-5 text-gray-500 group-hover:text-[#A5BF13] group-hover:translate-x-1 transition-all" />
             </div>
           </Link>
 
           {user.role === 'ORGANIZER' && (
             <Link 
               href="/organizer/events/create"
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
+              className="bg-[#292929] border border-[#404040] rounded-2xl p-6 hover:border-[#A5BF13] hover:shadow-lg hover:shadow-[#A5BF13]/10 transition-all group"
             >
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                  <TrendingUp className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                <div className="p-4 bg-[#A5BF13] bg-opacity-10 rounded-xl group-hover:scale-110 transition-transform">
+                  <TrendingUp className="h-6 w-6 text-[#A5BF13]" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Create Event</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">List a new event</p>
+                <div className="flex-1">
+                  <h3 className="font-bold text-white mb-1 group-hover:text-[#A5BF13] transition-colors">Create Event</h3>
+                  <p className="text-sm text-gray-400">List a new event</p>
                 </div>
+                <ArrowRight className="h-5 w-5 text-gray-500 group-hover:text-[#A5BF13] group-hover:translate-x-1 transition-all" />
               </div>
             </Link>
           )}
         </div>
 
         {/* Recent Orders */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+        <div className="bg-[#292929] border border-[#404040] rounded-2xl p-8">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Recent Orders</h2>
+            <h2 className="text-2xl font-bold text-white">Recent Orders</h2>
             <Link 
               href="/orders"
-              className="text-blue-600 hover:text-blue-700 dark:text-blue-400 text-sm font-medium"
+              className="flex items-center gap-2 text-[#A5BF13] hover:text-[#8a9f10] text-sm font-medium group"
             >
               View All
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
           {recentOrders.length === 0 ? (
-            <div className="text-center py-12">
-              <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 dark:text-gray-400 mb-4">No orders yet</p>
+            <div className="text-center py-16 bg-[#1a1a1a] rounded-xl border border-dashed border-[#404040]">
+              <Package className="h-16 w-16 text-gray-600 mx-auto mb-4" />
+              <p className="text-gray-400 mb-6 text-lg">No orders yet</p>
               <Link 
                 href="/events"
-                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium"
+                className="inline-flex items-center gap-2 bg-[#A5BF13] hover:bg-[#8a9f10] text-[#292929] px-6 py-3 rounded-xl font-bold transition-all"
               >
                 Browse Events
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           ) : (
@@ -189,43 +197,44 @@ export default async function DashboardPage() {
                 <Link
                   key={order.id}
                   href={`/orders?orderNumber=${order.orderNumber}`}
-                  className="block border dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                  className="block bg-[#1a1a1a] border border-[#404040] rounded-xl p-6 hover:border-[#A5BF13] transition-all group"
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="font-bold text-white text-lg group-hover:text-[#A5BF13] transition-colors">
                           {order.event.title}
                         </h3>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${
                           order.status === 'COMPLETED' 
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                            ? 'bg-green-500 bg-opacity-20 text-green-400 border border-green-500 border-opacity-30'
                             : order.status === 'PENDING'
-                            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
-                            : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                            ? 'bg-yellow-500 bg-opacity-20 text-yellow-400 border border-yellow-500 border-opacity-30'
+                            : 'bg-red-500 bg-opacity-20 text-red-400 border border-red-500 border-opacity-30'
                         }`}>
                           {order.status}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <p className="text-sm text-gray-400 mb-3">
                         {order.event.venue?.name} • {format(new Date(order.event.startDate), 'MMM d, yyyy')}
                       </p>
-                      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                        <span>Order #{order.orderNumber}</span>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="font-mono">#{order.orderNumber}</span>
                         <span>•</span>
                         <span>{order.items.reduce((sum, item) => sum + item.quantity, 0)} tickets</span>
                         <span>•</span>
-                        <span className="font-semibold text-gray-900 dark:text-white">
+                        <span className="font-bold text-[#A5BF13]">
                           ${(Number(order.totalAmount) / 100).toFixed(2)}
                         </span>
                       </div>
                     </div>
-                    <div className="ml-4">
+                    <div className="ml-4 flex items-center gap-3">
                       {order.status === 'COMPLETED' ? (
-                        <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+                        <CheckCircle className="h-6 w-6 text-green-400" />
                       ) : (
-                        <Clock className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
+                        <Clock className="h-6 w-6 text-yellow-400" />
                       )}
+                      <ArrowRight className="h-5 w-5 text-gray-600 group-hover:text-[#A5BF13] group-hover:translate-x-1 transition-all" />
                     </div>
                   </div>
                 </Link>
@@ -237,4 +246,3 @@ export default async function DashboardPage() {
     </div>
   )
 }
-
