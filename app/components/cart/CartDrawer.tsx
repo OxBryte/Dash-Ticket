@@ -71,8 +71,6 @@ export default function CartDrawer() {
     setIsOpen(false);
   };
 
-  console.log("CartDrawer render - isOpen:", isOpen);
-
   return (
     <>
       {/* Cart Button */}
