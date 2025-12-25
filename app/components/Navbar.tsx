@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Ticket, Search, User, LogOut, LayoutDashboard, ShoppingBag, Plus } from 'lucide-react'
+import { Ticket, Search, User, LogOut, LayoutDashboard, ShoppingBag, Plus, UserCircle, Settings, Wallet } from 'lucide-react'
 import CartDrawer from './cart/CartDrawer'
 import { useAuth } from '@/app/lib/auth-context'
 import { useRouter } from 'next/navigation'
