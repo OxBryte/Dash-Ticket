@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile } from 'fs/promises'
+import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
+import { existsSync } from 'fs'
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,14 +9,17 @@ export async function POST(request: NextRequest) {
     const file = formData.get('file') as File
     
     if (!file) {
-      return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
+      return NextResponse.json(
+        { error: 'No file provided' },
+        { status: 400 }
+      )
     }
 
     // Validate file type
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(
-        { error: 'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.' },
+        { error: 'Invalid file type. Please upload an image (JPEG, PNG, WebP, or GIF)' },
         { status: 400 }
       )
     }
@@ -24,32 +28,35 @@ export async function POST(request: NextRequest) {
     const maxSize = 5 * 1024 * 1024 // 5MB
     if (file.size > maxSize) {
       return NextResponse.json(
-        { error: 'File too large. Maximum size is 5MB.' },
+        { error: 'File too large. Maximum size is 5MB' },
         { status: 400 }
       )
     }
 
-    // Generate unique filename
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    
-    const timestamp = Date.now()
-    const randomString = Math.random().toString(36).substring(7)
-    const extension = file.name.split('.').pop()
-    const filename = `event-${timestamp}-${randomString}.${extension}`
 
-    // Save to public/uploads directory
-    const uploadsDir = join(process.cwd(), 'public', 'uploads')
-    const filepath = join(uploadsDir, filename)
+    // Create unique filename
+    const timestamp = Date.now()
+    const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
+    const filename = `${timestamp}-${originalName}`
     
+    // Ensure uploads directory exists
+    const uploadsDir = join(process.cwd(), 'public', 'uploads', 'events')
+    if (!existsSync(uploadsDir)) {
+      await mkdir(uploadsDir, { recursive: true })
+    }
+
+    // Write file
+    const filepath = join(uploadsDir, filename)
     await writeFile(filepath, buffer)
     
-    // Return the public URL
-    const imageUrl = `/uploads/${filename}`
+    // Return URL path (relative to public directory)
+    const url = `/uploads/events/${filename}`
     
     return NextResponse.json({ 
       success: true, 
-      imageUrl,
+      url,
       filename 
     })
   } catch (error) {
@@ -60,4 +67,3 @@ export async function POST(request: NextRequest) {
     )
   }
 }
-
