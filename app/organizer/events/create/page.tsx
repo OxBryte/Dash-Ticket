@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { Calendar, MapPin, DollarSign, Ticket, Plus, X, Sparkles, Clock, Image as ImageIcon } from 'lucide-react'
+import { Calendar, MapPin, DollarSign, Ticket, Plus, X, Sparkles, Clock, Image as ImageIcon, Upload, Trash2 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 interface TicketTypeForm {
